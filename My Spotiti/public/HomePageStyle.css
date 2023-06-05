@@ -43,6 +43,7 @@ button:hover {
 
 h2 {
   margin-top: 20px;
+  color: #fff;
 }
 
 .menu {
@@ -97,8 +98,9 @@ h2 {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  background-color: #7474745a;
+  background-color: #74747422;
   padding: 10px;
+  color: #fff;
 }
 
 .song-item img {
@@ -119,10 +121,12 @@ h2 {
 
 .song-artist {
   margin-right: 10px;
+  font-size: smaller;
 }
 
 .song-duration {
   margin-right: 10px;
+  margin-left: 50px;
 }
 
 .song-controls {
@@ -140,7 +144,7 @@ h2 {
   display: flex;
   align-items: center;
   padding: 20px;
-  background-color: #f1f1f1;
+  background-color: #77777730;
 }
 
 .profile-image {
@@ -160,6 +164,7 @@ h2 {
 .profile-name {
   margin-left: 10px;
   font-weight: bold;
+  color: #fff;
 }
 
 .profile-member {
