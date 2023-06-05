@@ -1,0 +1,62 @@
+body {
+    background-color: #f7f7f7; 
+    font-family: Arial, sans-serif;
+    margin-top: 10%;
+    background-image: url("./assets/Dark\ Street\ Photo\ Rectangle\ iPhone\ Layout.png");
+    background-size: 100%;
+    margin-right: 40%;
+  }
+
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffffc2;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    color: #0b145d;
+    margin-bottom: 30px;
+    font-size: 400%;
+    font-weight: 1000;  
+    font-style: oblique;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #1c3574;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0f1a6a;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #080d3b;
+  }
