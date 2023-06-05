@@ -1,14 +1,49 @@
 import path from 'path'
-import  Express from 'express'
+import  express from 'express'
+import mysql from 'mysql';
+
+const pool = mysql.createPool({
+    user: 'root',
+    password: '',
+    database: 'tubes_spotiti',
+    host: 'localhost'
+});
+
 
 const port = 8080;
-const app = Express();
+const app = express();
 app.listen(port, ()=>{
     console.log(`Port ${port} is ready`)
 })
 
+
 app.set('view engine', 'ejs')
-app.use(Express.static(path.resolve('public')));
+app.use(express.static(path.resolve('public')));
+app.use(express.urlencoded({extended: true}));
+
+const dbConnect = () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, conn) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(conn);
+            }
+        });
+    });
+};
+
+const getUser = (conn, username, password) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT * FROM user WHERE username = '${username}' AND password = '${password}'`, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
 
 app.get('/login',async (req,res) =>{
     res.render('login')
@@ -21,4 +56,19 @@ app.get('/HomePage',async (req,res) =>{
 });
 app.get('/homepage-admin',async (req,res) =>{
     res.render('homepage-admin')
+});
+
+
+app.post('/login',async (req,res) =>{
+    const conn = await dbConnect()
+    const { username, password } = req.body;
+    if(username.length > 0 && password.length > 0){
+        const dataUser = await getUser(conn, username, password)
+        if(dataUser.length > 0){
+            res.render('HomePage')
+        }
+        else{
+            res.render('login')
+        }
+    }
 });
