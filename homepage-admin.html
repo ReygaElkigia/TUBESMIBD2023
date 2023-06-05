@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin MySpotiti - Home</title>
+  <link rel="stylesheet" type="text/css" href="homepage-admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, Admin MySpotiti</h1>
+    <div class="section">
+      <h2>Manage Genre</h2>
+      <form class="admin-form" id="genre-form">
+        <input type="text" placeholder="Genre Name" id="genre-input" required>
+        <button type="button" onclick="addGenre()">Add Genre</button>
+      </form>
+      <ul id="genre-list"></ul>
+    </div>
+    <div class="section">
+      <h2>Manage Sub-Genre</h2>
+      <form class="admin-form" id="subgenre-form">
+        <input type="text" placeholder="Sub-Genre Name" id="subgenre-input" required>
+        <select id="genre-select"></select>
+        <button type="button" onclick="addSubgenre()">Add Sub-Genre</button>
+      </form>
+      <ul id="subgenre-list"></ul>
+    </div>
+    <div class="section">
+      <h2>Manage Music</h2>
+      <form class="admin-form" id="music-form">
+        <input type="text" placeholder="Music Title" id="music-input" required>
+        <select id="genre-select"></select>
+        <select id="subgenre-select"></select>
+        <button type="button" onclick="addMusic()">Add Music</button>
+      </form>
+      <ul id="music-list"></ul>
+    </div>
+  </div>
+
+  <script src="homepage-admin.js"></script>
+</body>
+</html>
