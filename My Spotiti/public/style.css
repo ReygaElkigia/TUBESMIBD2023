@@ -60,3 +60,17 @@ body {
   input[type="button"]:hover {
     background-color: #080d3b;
   }
+
+  .form-group button{
+
+    width: 100%;
+    padding: 10px;
+    background-color: #0f1a6a;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+  }

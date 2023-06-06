@@ -57,6 +57,9 @@ app.get('/HomePage',async (req,res) =>{
 app.get('/homepage-admin',async (req,res) =>{
     res.render('homepage-admin')
 });
+app.get('/homepage-pimpinan',async (req,res) =>{
+    res.render('homepage-pimpinan')
+});
 
 
 app.post('/login',async (req,res) =>{

@@ -126,12 +126,13 @@ h2 {
 
 .song-duration {
   margin-right: 10px;
-  margin-left: 50px;
+  margin-left: 200px;
 }
 
 .song-controls {
   display: flex;
   align-items: center;
+  margin-left: 130px;
 }
 
 .song-controls button {
