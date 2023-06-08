@@ -21,9 +21,26 @@
       <div class="made-for-you">
         <h2>Playlist For You</h2>
         <div class="image-container">
-          <a href="#">
-            <img src="assets/mixPlaylist.png" alt="Album Image">
-          </a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>no</th>
+                        <th>Song</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let i = 1 %>
+                    <% for(let row of dataPlaylist) { %>
+                        <tr>
+                            <td><%= i %></td>
+                            <td><%= row.judul %></td>
+                        </tr>
+                    
+                    <% i++ %>
+                    <% } %>
+
+                </tbody>
+            </table>
         </div>
         <div><br></div>
       </div>

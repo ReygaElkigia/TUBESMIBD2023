@@ -1,6 +1,7 @@
 import path from 'path'
 import  express from 'express'
 import mysql from 'mysql';
+import { render } from 'ejs';
 
 const pool = mysql.createPool({
     user: 'root',
@@ -45,6 +46,21 @@ const getUser = (conn, username, password) => {
     });
 };
 
+const getPlaylist = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query
+        (`SELECT judul 
+          FROM music JOIN isiPlaylist ON music.id_musik = isiPlaylist.id_musik 
+          WHERE id_playlist = 1  `, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 app.get('/login',async (req,res) =>{
     res.render('login')
 });
@@ -61,7 +77,12 @@ app.get('/homepage-pimpinan',async (req,res) =>{
     res.render('homepage-pimpinan')
 });
 app.get('/MemberPlaylist',async (req,res) =>{
-    res.render('MemberPlaylist')
+    const conn = await dbConnect()
+    let dataPlaylist = await getPlaylist(conn)
+    res.render('MemberPlaylist', {dataPlaylist})
+});
+app.get('/MemberGenre',async (req,res) =>{
+    res.render('MemberGenre')
 });
 
 app.post('/login',async (req,res) =>{
@@ -77,3 +98,4 @@ app.post('/login',async (req,res) =>{
         }
     }
 });
+

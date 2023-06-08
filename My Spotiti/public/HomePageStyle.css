@@ -102,26 +102,26 @@ h2 {
   background-color: #74747422;
   padding: 10px;
   color: #fff;
+  justify-content: space-between;
 }
 
 .song-item img {
   width: 60px;
-  margin-right: 10px;
   cursor: pointer;
 }
 
 .song-details {
   display: flex;
   align-items: center;
+  
 }
 
 .song-title {
   font-weight: bold;
-  margin-right: 10px;
+  
 }
 
 .song-artist {
-  margin-right: 10px;
   font-size: smaller;
 }
 
