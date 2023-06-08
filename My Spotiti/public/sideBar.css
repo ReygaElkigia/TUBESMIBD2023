@@ -1,0 +1,49 @@
+h1 {
+    margin-top: 0;
+    color: #ffffff;
+  }
+  
+  input[type="text"] {
+    padding: 5px;
+    width: 150px;
+    margin-right: 10px;
+    border-radius: 5%;
+  }
+  
+  button {
+    padding: 5px 10px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #292a2b;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    color: #fff;
+  }
+  
+  .menu {
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .submenu {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .submenu button {
+    display: block;
+    margin-bottom: 5px;
+    background: none;
+    color: #ffffff;
+  }
+
+  .sideBarsemua{
+    position:fixed;
+  }
