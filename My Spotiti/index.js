@@ -60,7 +60,9 @@ app.get('/homepage-admin',async (req,res) =>{
 app.get('/homepage-pimpinan',async (req,res) =>{
     res.render('homepage-pimpinan')
 });
-
+app.get('/MemberPlaylist',async (req,res) =>{
+    res.render('MemberPlaylist')
+});
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()

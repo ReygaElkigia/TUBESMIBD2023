@@ -35,10 +35,16 @@ h1 {
   .submenu {
     margin-top: 10px;
     margin-left: 20px;
+    
+  }
+  .submenu div{
+    margin-top: 20px;
+    
+    
   }
   
   .submenu button {
-    display: block;
+    
     margin-bottom: 5px;
     background: none;
     color: #ffffff;
@@ -47,3 +53,9 @@ h1 {
   .sideBarsemua{
     position:fixed;
   }
+  a{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 2%;
+  }
+  

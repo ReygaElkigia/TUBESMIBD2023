@@ -75,7 +75,8 @@ h2 {
 
 .made-for-you img {
   width: 1000%;
-  height: auto;
+  height: 45%;
+  border-radius: 5%;
 }
 
 .image-container {
@@ -146,6 +147,7 @@ h2 {
   align-items: center;
   padding: 20px;
   background-color: #77777730;
+  border-radius: 5%;
 }
 
 .profile-image {
@@ -190,6 +192,7 @@ h2 {
 
 .square-image {
   margin-top: 20px;
+  border-radius: 5%;
 }
 
 .square-image img {
@@ -211,7 +214,6 @@ h2 {
 }
 
 
-
 .column-2 {
   flex-basis: 40%;
   padding: 3%;
@@ -219,7 +221,7 @@ h2 {
 
 .column-3 {
   flex-basis: 20%;
-  
+  border-right: #fff;
   padding-left: 4%;
 }
 
@@ -249,13 +251,15 @@ h2 {
   justify-content: center;
   align-items: center;
   background-image: url(./assets/Forever.jpg);
-  
+  border-radius: 5%;
 }
 .music-player2 {
   
   background-color: #ffffff94;
   padding: 10%;
   margin-top: 60%;
+  width: 60%;
+  border-radius: 5%;
   
 }
 
@@ -279,10 +283,10 @@ h2 {
 
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 button {
