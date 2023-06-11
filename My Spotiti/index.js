@@ -49,9 +49,9 @@ const getUser = (conn, username, password) => {
 const getPlaylist = conn => {
     return new Promise((resolve, reject) => {
         conn.query
-        (`SELECT judul 
-          FROM music JOIN isiPlaylist ON music.id_musik = isiPlaylist.id_musik 
-          WHERE id_playlist = 1  `, (err, result) => {
+        (`SELECT playlist.nama
+          FROM playlist JOIN user ON playlist.id_user = user.id
+           `, (err, result) => {
             if(err){
                 reject(err);
             } else{

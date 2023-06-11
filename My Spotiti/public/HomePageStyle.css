@@ -147,7 +147,7 @@ h2 {
   align-items: center;
   padding: 20px;
   background-color: #77777730;
-  border-radius: 5%;
+  border-radius: 10px;
 }
 
 .profile-image {
@@ -192,7 +192,7 @@ h2 {
 
 .square-image {
   margin-top: 20px;
-  border-radius: 5%;
+  border-radius: 10px;
 }
 
 .square-image img {

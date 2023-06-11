@@ -299,7 +299,24 @@ body {
   
   
   
+  .column.column-2  table {
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    border-spacing: 10px;
+    background-position: center;
+    table-layout: fixed; /* Mengatur lebar tabel menjadi tetap */
+    width: 1000%;
+    height: 180%;
+  }
   
+  .column.column-2 .image-container table td {
+    font-size: 30px; /* Ubah ukuran teks sesuai kebutuhan */
+    color: #ffffff; /* Ubah warna teks menjadi putih */
+    padding-left: 10%;
+    background-image: url(./assets/babi.jpg);
+    border-radius: 10px;
+    font-weight: 200px;
+  }
   
   
   
