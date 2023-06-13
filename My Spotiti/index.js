@@ -84,6 +84,10 @@ app.get('/MemberPlaylist',async (req,res) =>{
 app.get('/MemberGenre',async (req,res) =>{
     res.render('MemberGenre')
 });
+app.get('/Membership',async (req,res) =>{
+    res.render('Membership')
+});
+
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()

@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.top-div {
+    background-color: maroon;
+    flex: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.top-div h1 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.top-div h2 {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.top-div .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-div button {
+    margin-bottom: 10px;
+}
+
+.bottom-div {
+    background-color: white;
+    flex: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.bottom-div > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.bottom-div h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.bottom-div h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.circle-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: gray;
+    margin-bottom: 10px;
+}
