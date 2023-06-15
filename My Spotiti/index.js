@@ -87,6 +87,9 @@ app.get('/MemberGenre',async (req,res) =>{
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
 });
+app.get('/admin-displayMusic',async (req,res) =>{
+    res.render('admin-displayMusic')
+});
 
 
 app.post('/login',async (req,res) =>{
@@ -103,3 +106,22 @@ app.post('/login',async (req,res) =>{
     }
 });
 
+app.post('/admin-displayMusic', async (req, res) => {
+    const conn = await dbConnect();
+  
+    try {
+      const { musicTitle } = req.body;
+  
+      if (musicTitle) {
+        await conn.query(`INSERT INTO music (title) VALUES ('${musicTitle}')`);
+        res.redirect('/admin-displayMusic');
+      } else {
+        res.status(400).send('Invalid music title');
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } finally {
+      conn.release();
+    }
+  });

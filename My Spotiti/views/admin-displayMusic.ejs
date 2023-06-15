@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin MySpotiti - Display Music</title>
+  <link rel="stylesheet" type="text/css" href="homepage-admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Music List</h1>
+    <ul id="music-list"></ul>
+  </div>
+
+  <script>
+    var musicData = JSON.parse(localStorage.getItem("musicData"));
+
+    if (musicData && musicData.length > 0) {
+      var musicList = document.getElementById("music-list");
+
+      musicData.forEach(function (musicTitle) {
+        var li = document.createElement("li");
+        li.textContent = musicTitle;
+        musicList.appendChild(li);
+      });
+    } else {
+      var container = document.getElementsByClassName("container")[0];
+      var message = document.createElement("p");
+      message.textContent = "No music data available.";
+      container.appendChild(message);
+    }
+  </script>
+  <form action="/admin-displayMusic" method="POST">
+    <input type="text" name="musicTitle" placeholder="Music Title" required>
+    <button type="submit">Simpan</button>
+  </form>
+    
+</body>
+</html>
