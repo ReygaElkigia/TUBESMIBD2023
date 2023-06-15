@@ -90,7 +90,9 @@ app.get('/Membership',async (req,res) =>{
 app.get('/admin-displayMusic',async (req,res) =>{
     res.render('admin-displayMusic')
 });
-
+app.get('/admin-displayMusic.ejs',async (req,res) =>{
+    res.render('admin-displayMusic')
+});
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()
