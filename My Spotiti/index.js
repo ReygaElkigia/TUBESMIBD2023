@@ -183,3 +183,26 @@ app.post('/admin-displayMusic', async (req, res) => {
       conn.release();
     }
   });
+  const getMyMusicData = (conn) => {
+    return new Promise((resolve, reject) => {
+      conn.query('SELECT * FROM my_music_data', (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  };
+  app.get('/music-playback', async (req, res) => {
+    const conn = await dbConnect();
+    try {
+      const myMusicData = await getMyMusicData(conn);
+      res.render('music-playback', { myMusicData });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } finally {
+      conn.release();
+    }
+  });

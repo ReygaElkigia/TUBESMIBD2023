@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(332deg, rgba(0, 0, 0, 1) 0%, rgba(96, 44, 60, 1) 100%);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    color: #fff;
+    margin-left: 200px;
+}
+
+.title {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(332deg, rgba(0, 0, 0, 1) 0%, rgba(96, 44, 60, 1) 100%);
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+.sidebar {
+    width: 250px;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(332deg, rgba(0, 0, 0, 1) 0%, rgba(96, 44, 60, 1) 100%);
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    padding-top: 15%;
+}
+
+.menu {
+    list-style-type: none;
+    padding-top: 15%;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu li a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu li.active a {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.other {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.other a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.tabel {
+    text-align: center;
+    margin-top: 150px;
+}
+
+table {
+    margin: 0 auto;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+thead {
+    background-color: purple;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
