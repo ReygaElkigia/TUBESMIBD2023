@@ -32,23 +32,34 @@
 
     <div class="tabel">
         <table border="1">
-            <thead>
-                <tr>
-                    Month
-                </tr>
-            </thead>
+            <tr>
+                <thead >
+                    <tr style="background-color: purple; color:white;">
+                        <th scope="col">Month</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">TOP SONG</th>
+                        <th scope="col">TOP GENRE</th>
+                        <th scope="col">TOP SUB-GENRE</th>
+                        <th scope="col">MUSIC PLAYER</th>
+                    </tr>
+                </thead>
             <tbody>
                 <% let i = 1 %>
                 <% for(let row of musicData) { %>
                     <tr>
                        
                         <td><%= row.month %></td>
+                        <td><%= row.amount %></td>
+                        <td><%= row.top_song %></td>
+                        <td><%= row.top_genre %></td>
+                        <td><%= row.top_subgenre %></td>
+                        <td><%= row.num_music_players %></td>
                     </tr>
                 
                 <% i++ %>
                 <% } %>
-
             </tbody>
+            </tr>
         </table>
     </div>
 </body>
