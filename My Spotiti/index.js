@@ -206,7 +206,7 @@ app.post('/admin-displayMusic', async (req, res) => {
       conn.release();
     }
   });
-  const getMusicData = (conn) => {
+    const getMusicData = (conn) => {
     return new Promise((resolve, reject) => {
       conn.query('SELECT * FROM music_data', (err, result) => {
         if (err) {
@@ -222,6 +222,18 @@ app.post('/admin-displayMusic', async (req, res) => {
     try {
       const musicData = await getMusicData(conn);
       res.render('monthly-pimpinan', { musicData });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } finally {
+      conn.release();
+    }
+  });
+  app.get('/playback-graph-transaction', async (req, res) => {
+    const conn = await dbConnect();
+    try {
+      const musicData = await getMusicData(conn);
+      res.render('playback-graph-transaction', { musicData });
     } catch (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
