@@ -121,22 +121,12 @@ app.get('/MemberGenre',async (req,res) =>{
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
 });
-<<<<<<< Updated upstream
 app.get('/admin-displayMusic',async (req,res) =>{
     res.render('admin-displayMusic')
 });
 app.get('/admin-displayMusic.ejs',async (req,res) =>{
     res.render('admin-displayMusic')
 });
-=======
-app.get('/LanjutanMembership',async (req,res) =>{
-    res.render('LanjutanMembership')
-});
-app.get('/Lanjutan2Membership',async (req,res) =>{
-    res.render('Lanjutan2Membership')
-});
-
->>>>>>> Stashed changes
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()
@@ -153,7 +143,6 @@ app.post('/login',async (req,res) =>{
     }
 });
 
-<<<<<<< Updated upstream
 app.post('/admin-displayMusic', async (req, res) => {
     const conn = await dbConnect();
   
@@ -173,7 +162,3 @@ app.post('/admin-displayMusic', async (req, res) => {
       conn.release();
     }
   });
-=======
-
-
->>>>>>> Stashed changes
