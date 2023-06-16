@@ -1,0 +1,26 @@
+-- Membuat tabel my_music_data
+CREATE TABLE my_music_data (
+    my_month VARCHAR(10),
+    my_amount INT,
+    my_top_song VARCHAR(100),
+    my_top_genre VARCHAR(50),
+    my_top_subgenre VARCHAR(50),
+    my_num_music_players INT
+);
+
+-- Menambahkan data ke tabel my_music_data
+INSERT INTO music_data (my_month, my_amount, my_top_song, my_top_genre, my_top_subgenre, my_num_music_players)
+VALUES 
+  ('January', 1000, 'Song A', 'Genre X', 'Subgenre 1', 500),
+  ('February', 1500, 'Song B', 'Genre Y', 'Subgenre 2', 800),
+  ('March', 2000, 'Song C', 'Genre Z', 'Subgenre 3', 1200),
+  ('April', 1800, 'Song D', 'Genre X', 'Subgenre 1', 700),
+  ('May', 2500, 'Song E', 'Genre Y', 'Subgenre 2', 900),
+  ('June', 2200, 'Song F', 'Genre Z', 'Subgenre 3', 1000),
+  ('July', 1900, 'Song G', 'Genre X', 'Subgenre 1', 600),
+  ('August', 2700, 'Song H', 'Genre Y', 'Subgenre 2', 1100),
+  ('September', 2300, 'Song I', 'Genre Z', 'Subgenre 3', 950),
+  ('October', 2600, 'Song J', 'Genre X', 'Subgenre 1', 750),
+  ('November', 2400, 'Song K', 'Genre Y', 'Subgenre 2', 1000),
+  ('December', 2800, 'Song L', 'Genre Z', 'Subgenre 3', 1150);
+
