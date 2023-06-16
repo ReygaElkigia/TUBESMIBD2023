@@ -73,14 +73,11 @@ const getPlaylist = conn => {
     });
 };
 
-
-const getProfile = conn => {
+const getGenre = conn => {
     return new Promise((resolve, reject) => {
         conn.query
         (`SELECT nama
-          FROM user 
-          WHERE username = '${username}'`, 
-          (err, result) => {
+          FROM genre `, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -89,6 +86,8 @@ const getProfile = conn => {
         });
     });
 };
+
+
 
 
 app.get('/login',async (req,res) =>{
@@ -110,13 +109,19 @@ app.get('/homepage-admin',async (req,res) =>{
 app.get('/homepage-pimpinan',async (req,res) =>{
     res.render('homepage-pimpinan')
 });
-app.get('/MemberPlaylist',async (req,res) =>{
-    const conn = await dbConnect()
-    let dataPlaylist = await getPlaylist(conn)
-    res.render('MemberPlaylist', {dataPlaylist})
-});
+
+app.get('/MemberPlaylist', async (req, res) => {
+    const conn = await dbConnect();
+    const nama = req.session.name; // Definisikan variabel 'nama' di sini
+    let dataPlaylist = await getPlaylist(conn);
+    res.render('MemberPlaylist', { dataPlaylist, nama });
+    console.log(nama);
+  }); 
+
 app.get('/MemberGenre',async (req,res) =>{
-    res.render('MemberGenre')
+    const conn = await dbConnect()
+    let dataGenre = await getGenre(conn)
+    res.render('MemberGenre',{dataGenre} )
 });
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
@@ -127,6 +132,7 @@ app.get('/admin-displayMusic',async (req,res) =>{
 app.get('/admin-displayMusic.ejs',async (req,res) =>{
     res.render('admin-displayMusic')
 });
+ 
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()

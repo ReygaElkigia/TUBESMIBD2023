@@ -15,7 +15,33 @@
         <%- include('sideBar') %>
       </div>
       <div class="column column-2">
-        
+        <div class="upgrade-button">
+          <button>Upgrade</button>
+        </div>
+        <div class="made-for-you">
+          <h2>Music Genre's</h2>
+          <div class="image-container">
+              <table>
+                  <thead>
+                      <tr> 
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% let i = 1 %>
+                      <% for(let row of dataGenre) { %>
+                          <tr>
+                             
+                              <td><%= row.nama %></td>
+                          </tr>
+                      
+                      <% i++ %>
+                      <% } %>
+  
+                  </tbody>
+              </table>
+          </div>
+          <div><br></div>
+        </div>
       </div> 
       <div class="column column-3">
         <div class="profile">
