@@ -90,6 +90,8 @@ const getGenre = conn => {
 
 
 
+
+
 app.get('/login',async (req,res) =>{
     const conn = await dbConnect()
     var nama = req.session.name
@@ -120,12 +122,21 @@ app.get('/MemberPlaylist', async (req, res) => {
 
 app.get('/MemberGenre',async (req,res) =>{
     const conn = await dbConnect()
+    const nama = req.session.name; 
     let dataGenre = await getGenre(conn)
-    res.render('MemberGenre',{dataGenre} )
+    res.render('MemberGenre',{dataGenre, nama} )
 });
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
 });
+
+app.get('/LanjutanMembership',async (req,res) =>{
+    res.render('lanjutanMembership')
+});
+app.get('/Lanjutan2Membership',async (req,res) =>{
+    res.render('Lanjutan2Membership')
+});
+
 app.get('/admin-displayMusic',async (req,res) =>{
     res.render('admin-displayMusic')
 });
@@ -133,6 +144,10 @@ app.get('/admin-displayMusic.ejs',async (req,res) =>{
     res.render('admin-displayMusic')
 });
  
+
+
+
+
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()

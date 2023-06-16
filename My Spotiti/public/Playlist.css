@@ -1,324 +1,323 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(332deg, rgba(0, 0, 0, 1) 0%, rgba(96, 44, 60, 1) 100%)
-  }
-  
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 3%;
-  }
-  
-  .column {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  h1 {
-    margin-top: 0;
-    color: #ffffff;
-  }
-  
-  input[type="text"] {
-    padding: 5px;
-    width: 150px;
-    margin-right: 10px;
-    border-radius: 5%;
-  }
-  
-  button {
-    padding: 5px 10px;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #292a2b;
-  }
-  
-  h2 {
-    margin-top: 20px;
-    color: #fff;
-  }
-  
-  .menu {
-    margin-bottom: 20px;
-    color: #fff;
-  }
-  
-  .submenu {
-    margin-top: 10px;
-    margin-left: 20px;
-  }
-  
-  .submenu button {
-    display: block;
-    margin-bottom: 5px;
-    background: none;
-    color: #ffffff;
-  }
-  
-  .upgrade-button {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  .made-for-you {
-    margin-bottom: 20px;
-  }
-  
-  .made-for-you img {
-    width: 1000%;
-    height: 45%;
-    border-radius: 5%;
-  }
-  
-  .image-container {
-    width: 10%;
-    margin-bottom: 20px;
-    
-  }
-  
-  .recently-played {
-    margin-bottom: 10px;
-  }
-  
-  .song-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .song-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: #74747422;
-    padding: 10px;
-    color: #fff;
-  }
-  
-  .song-item img {
-    width: 60px;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .song-details {
-    display: flex;
-    align-items: center;
-  }
-  
-  .song-title {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .song-artist {
-    margin-right: 10px;
-    font-size: smaller;
-  }
-  
-  .song-duration {
-    margin-right: 10px;
-    margin-left: 200px;
-  }
-  
-  .song-controls {
-    display: flex;
-    align-items: center;
-    margin-left: 130px;
-  }
-  
-  .song-controls button {
-    margin-right: 10px;
-  }
-  
-  
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    background-color: #77777730;
-    border-radius: 5%;
-  }
-  
-  .profile-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    
-  }
-  
-  .profile-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .profile-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    width: 100%;
-  }
-  
-  .profile-name {
-    margin-left: 2px;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .profile-member {
-    margin-top: 5px;
-    color: gray;
-  }
-  
-  .profile-settings {
-    margin-left: 10px;
-    margin-right: 20px;
-  
-  }
-  
-  
-  
-  .square-image {
-    margin-top: 20px;
-    border-radius: 5%;
-  }
-  
-  .square-image img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .column {
-    flex-basis: 9%;
-    display: flex;
-    flex-direction: column;
-    margin-right: 0%;
-    border-style: solid;
-    border-width: 1px;
-    border-top-color: #ffffff00;
-    border-left: #fff;
-    border-bottom: #fff;
-    
-  }
-  
-  
-  .column-2 {
-    flex-basis: 40%;
-    padding: 3%;
-  }
-  
-  .column-3 {
-    flex-basis: 20%;
-    border-right: #fff;
-    padding-left: 4%;
-  }
-  
-  
-  
-  
-  
-  .square-image {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .square-image img {
-    width: 100%;
-    display: block;
-  }
-  
-  .music-player {
-    
-    top: 0;
-    left: 0;
-    width: 100%;
-    height:70%;
-    margin-top: 4%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-image: url(./assets/Forever.jpg);
-    border-radius: 5%;
-  }
-  .music-player2 {
-    
-    background-color: #ffffff94;
-    padding: 10%;
-    margin-top: 60%;
-    width: 60%;
-    border-radius: 5%;
-    
-  }
-  
-  .music-info {
-    text-align: center;
-    margin-bottom: 10px;
-    color: rgb(0, 0, 0);
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 4px;
-    background-color: rgb(117, 117, 117);
-  }
-  
-  .progress {
-    width: 70%;
-    height: 100%;
-    background-color: #ffffff; /* Warna merah sebagai contoh */
-  }
-  
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  
-  
-  
-  .column.column-2  table {
-    border-radius: 10px;
-    background-repeat: no-repeat;
-    border-spacing: 10px;
-    background-position: center;
-    table-layout: fixed; /* Mengatur lebar tabel menjadi tetap */
-    width: 1000%;
-    height: 180%;
-  }
-  
-  .column.column-2 .image-container table td {
-    font-size: 30px; /* Ubah ukuran teks sesuai kebutuhan */
-    color: #ffffff; /* Ubah warna teks menjadi putih */
-    padding-left: 10%;
-    background-image: url(./assets/babi.jpg);
-    border-radius: 10px;
-    font-weight: 200px;
-  }
-  
-  
-  
-  
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(332deg, rgba(0, 0, 0, 1) 0%, rgba(96, 44, 60, 1) 100%)
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3%;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+}
+
+h1 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+input[type="text"] {
+  padding: 5px;
+  width: 150px;
+  margin-right: 10px;
+  border-radius: 5%;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #292a2b;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #fff;
+}
+
+.menu {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.submenu {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.submenu button {
+  display: block;
+  margin-bottom: 5px;
+  background: none;
+  color: #ffffff;
+}
+
+.upgrade-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.made-for-you {
+  margin-bottom: 20px;
+}
+
+.made-for-you img {
+  width: 1000%;
+  height: 45%;
+  border-radius: 5%;
+}
+
+.image-container {
+  width: 10%;
+  margin-bottom: 20px;
+
+}
+
+.recently-played {
+  margin-bottom: 10px;
+}
+
+.song-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #74747422;
+  padding: 10px;
+  color: #fff;
+}
+
+.song-item img {
+  width: 60px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.song-details {
+  display: flex;
+  align-items: center;
+}
+
+.song-title {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.song-artist {
+  margin-right: 10px;
+  font-size: smaller;
+}
+
+.song-duration {
+  margin-right: 10px;
+  margin-left: 200px;
+}
+
+.song-controls {
+  display: flex;
+  align-items: center;
+  margin-left: 130px;
+}
+
+.song-controls button {
+  margin-right: 10px;
+}
+
+
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #77777730;
+  border-radius: 5%;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profile-name {
+  margin-left: 2px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.profile-member {
+  margin-top: 5px;
+  color: gray;
+}
+
+.profile-settings {
+  margin-left: 10px;
+  margin-right: 20px;
+
+}
+
+
+
+.square-image {
+  margin-top: 20px;
+  border-radius: 5%;
+}
+
+.square-image img {
+  width: 100%;
+  height: auto;
+}
+
+.column {
+  flex-basis: 9%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 0%;
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: #ffffff00;
+  border-left: #fff;
+  border-bottom: #fff;
+
+}
+
+.column-2 {
+  flex-basis: 40%;
+  padding: 3%;
+}
+
+.column-3 {
+  flex-basis: 20%;
+  border-right: #fff;
+  padding-left: 4%;
+}
+
+
+
+
+
+.square-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.square-image img {
+  width: 100%;
+  display: block;
+}
+
+.music-player {
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./assets/Forever.jpg);
+  border-radius: 5%;
+}
+
+.music-player2 {
+
+  background-color: #ffffff94;
+  padding: 10%;
+  margin-top: 60%;
+  width: 60%;
+  border-radius: 5%;
+
+}
+
+.music-info {
+  text-align: center;
+  margin-bottom: 10px;
+  color: rgb(0, 0, 0);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: rgb(117, 117, 117);
+}
+
+.progress {
+  width: 70%;
+  height: 100%;
+  background-color: #ffffff;
+  /* Warna merah sebagai contoh */
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+.column.column-2 table {
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  border-spacing: 10px;
+  background-position: center;
+  table-layout: fixed;
+  /* Mengatur lebar tabel menjadi tetap */
+  width: 1000%;
+  height: 180%;
+}
+
+.column.column-2 .image-container table td {
+  font-size: 30px;
+  /* Ubah ukuran teks sesuai kebutuhan */
+  color: #ffffff;
+  /* Ubah warna teks menjadi putih */
+  padding-left: 10%;
+  background-image: url(./assets/babi.jpg);
+  border-radius: 10px;
+  font-weight: 200px;
+}

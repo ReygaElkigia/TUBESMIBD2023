@@ -79,7 +79,7 @@
   .progress-bar {
     width: 100%;
     height: 4px;
-    background-color: rgb(117, 117, 117);
+    background-color: rgba(100, 99, 99, 0.518);
     margin-bottom: 10%;
   }
   .progress {
@@ -102,5 +102,6 @@
   }
   .sideBarSemua2{
     position:fixed;
-    margin-right: 2%;
+    margin-right: 3%;
+    border: #fff;
   }
