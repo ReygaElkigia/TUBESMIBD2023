@@ -265,4 +265,16 @@ app.post('/admin-displayMusic', async (req, res) => {
       conn.release();
     }
   });
+  app.get('/playback-graph-topsubgenre', async (req, res) => {
+    const conn = await dbConnect();
+    try {
+      const myMusicData = await getMyMusicData(conn);
+      res.render('playback-graph-topsubgenre', { myMusicData });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    } finally {
+      conn.release();
+    }
+  });
 

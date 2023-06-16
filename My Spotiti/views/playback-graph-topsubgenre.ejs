@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY SPOTITI</title>
+  <link rel="stylesheet" href="monthly-pimpinan.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="title">
+    <h1>MY SPOTITI</h1>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>HI, Pimpinan</h2>
+    </div>
+    <ul class="menu">
+      <li class="with-icon"><a href="#">Home <i class="fas fa-home"></i></a></li>
+      <li class="with-icon"><a href="#">Monthly Transaction Report <i class="fas fa-file"></i></a></li>
+      <li class="with-icon"><a href="#">Music Playback Transaction Report <i class="fas fa-music"></i></a></li>
+      <li class="with-icon"><a href="#">Playback Transaction Status <i class="fas fa-play-circle"></i></a></li>
+    </ul>
+
+    <div class="other">
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="monthlyChart"></canvas>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mengambil data dari server-side dan memasukkannya ke dalam variabel JavaScript
+      const myMusicData = <%- JSON.stringify(myMusicData.sort((a, b) => b.my_num_music_players - a.my_num_music_players)) %>;
+
+      // Ekstraksi label dan data dari musicData
+      const labels = myMusicData.map(item => item.my_top_subgenre);
+      const data = myMusicData.map(item => item.my_num_music_players);
+
+      // Konfigurasi grafik bar menggunakan Chart.js
+      const ctx = document.getElementById('monthlyChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Amount',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
