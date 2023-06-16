@@ -1,0 +1,83 @@
+body {
+    background-color: maroon;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    padding: 20px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #ddd;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    margin-right: 40px;
+}
+
+.content-wrapper {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    height: 60%;
+    margin-left: 33%;
+    margin-top: 1%;
+}
+
+.content-wrapper h2 {
+    display: inline-block;
+    margin: 0;
+    font-size: 24px;
+}
+
+.content-wrapper h3 {
+    margin-left: 400px;
+    color: #777;
+    font-size: 18px;
+}
+
+.content-wrapper hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.content-wrapper img {
+    
+    width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    margin-top: 20px;
+    margin-left: 90px;
+    margin-bottom: 10px;
+    border: #ae1111;
+}
+
+.subscribe-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 35%;
+    display: block;
+    margin-top: 10px;
+}
+

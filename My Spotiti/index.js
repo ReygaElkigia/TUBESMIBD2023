@@ -1,6 +1,7 @@
 import path from 'path'
 import  express from 'express'
 import mysql from 'mysql';
+import session from 'express-session';
 import { render } from 'ejs';
 
 const pool = mysql.createPool({
@@ -12,10 +13,21 @@ const pool = mysql.createPool({
 
 
 const port = 8080;
+
+
 const app = express();
 app.listen(port, ()=>{
     console.log(`Port ${port} is ready`)
 })
+
+const durasi = 1000 * 60 * 60 * 1;
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    cookie: {maxAge : durasi},
+    saveUninitialized: true
+}));
 
 
 app.set('view engine', 'ejs')
@@ -61,14 +73,36 @@ const getPlaylist = conn => {
     });
 };
 
+
+const getProfile = conn => {
+    return new Promise((resolve, reject) => {
+        conn.query
+        (`SELECT nama
+          FROM user 
+          WHERE username = '${username}'`, 
+          (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+
 app.get('/login',async (req,res) =>{
+    const conn = await dbConnect()
+    var nama = req.session.name
     res.render('login')
 });
 app.get('/signup',async (req,res) =>{
     res.render('signup')
 });
 app.get('/HomePage',async (req,res) =>{
-    res.render('HomePage')
+    var nama = req.session.name;
+    res.render('HomePage', {nama})
+    console.log(nama)
 });
 app.get('/homepage-admin',async (req,res) =>{
     res.render('homepage-admin')
@@ -87,12 +121,22 @@ app.get('/MemberGenre',async (req,res) =>{
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
 });
+<<<<<<< Updated upstream
 app.get('/admin-displayMusic',async (req,res) =>{
     res.render('admin-displayMusic')
 });
 app.get('/admin-displayMusic.ejs',async (req,res) =>{
     res.render('admin-displayMusic')
 });
+=======
+app.get('/LanjutanMembership',async (req,res) =>{
+    res.render('LanjutanMembership')
+});
+app.get('/Lanjutan2Membership',async (req,res) =>{
+    res.render('Lanjutan2Membership')
+});
+
+>>>>>>> Stashed changes
 
 app.post('/login',async (req,res) =>{
     const conn = await dbConnect()
@@ -100,7 +144,8 @@ app.post('/login',async (req,res) =>{
     if(username.length > 0 && password.length > 0){
         const dataUser = await getUser(conn, username, password)
         if(dataUser.length > 0){
-            res.render('HomePage')
+            req.session.name = dataUser[0].nama;
+            res.redirect('/HomePage')
         }
         else{
             res.render('login')
@@ -108,6 +153,7 @@ app.post('/login',async (req,res) =>{
     }
 });
 
+<<<<<<< Updated upstream
 app.post('/admin-displayMusic', async (req, res) => {
     const conn = await dbConnect();
   
@@ -127,3 +173,7 @@ app.post('/admin-displayMusic', async (req, res) => {
       conn.release();
     }
   });
+=======
+
+
+>>>>>>> Stashed changes

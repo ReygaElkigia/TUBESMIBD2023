@@ -1,15 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-  }
-  
-  .top-div {
+}
+
+.top-div {
     background-color: maroon;
     flex: 40%;
     display: flex;
@@ -17,31 +17,48 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-  }
-  
-  .top-div h1 {
+}
+
+.top-div h1 {
     font-size: 24px;
     color: white;
     margin-bottom: 10px;
-  }
-  
-  .top-div h2 {
+}
+
+.top-div h2 {
     font-size: 18px;
     color: white;
     margin-bottom: 20px;
-  }
-  
-  .top-div .button-container {
+}
+
+
+.top-div .button-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .top-div button {
+}
+.top-div a{
+    background-color: #ddd;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-size: 50%;
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.d2{
+    display: flex;
+    padding: 10px;
+
+}
+
+.top-div button {
     margin-bottom: 10px;
-  }
-  
-  .bottom-div {
+}
+
+.bottom-div {
     background-color: white;
     flex: 60%;
     display: flex;
@@ -49,31 +66,47 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-  }
-  
-  .bottom-div > div {
+}
+
+.bottom-div > div {
     flex: 1;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-  }
-  
-  .bottom-div h1 {
+    margin-left: 20px;
+}
+
+.bottom-div h1 {
     font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .bottom-div h2 {
+    margin-bottom: 50px;
+    margin-right: 25px;
+    margin-top: 20px;
+}
+
+.bottom-div h2 {
     font-size: 18px;
     margin-bottom: 10px;
-  }
-  
-  .circle-image {
-    width: 100px;
-    height: 100px;
+    margin-left: 60px;
+    margin-top: 40px;
+}
+
+.circle-image {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: gray;
-    margin-bottom: 10px;
-  } 
+    margin-right: 100px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #ddd;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
