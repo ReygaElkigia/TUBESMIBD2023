@@ -241,3 +241,16 @@ button {
   color: white;
   cursor: pointer;
 }
+
+table {
+  color: white;
+  border-spacing: 10px; /* Memberikan jarak antara kolom */
+  
+}
+
+th,
+td {
+  padding: 10px; /* Memberikan jarak pada tiap kolom dan baris */
+  opacity: 0.5; /* Mengatur opacity tabel */
+  background-color: rgba(128, 128, 128, 0.3); /* Mengatur background color tabel */
+}

@@ -72,7 +72,7 @@ const getPlaylist = conn => {
             });
     });
 };
-
+  
 
 const getGenre = conn => {
     return new Promise((resolve, reject) => {
@@ -88,9 +88,23 @@ const getGenre = conn => {
     });
 };
 
+const getSong= conn => {
+    return new Promise((resolve, reject) => {
+        conn.query
+        (`SELECT judul, artis , durasi
+          FROM music `, (err, result) => {
+            if(err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+};
+
 const sPLaylist= (conn, searchBar) => {
     return new Promise((resolve, reject) => {
-        conn.query(`SELECT nama FROM playlist WHERE nama= '${searchBar}'`, (err, result) => {
+        conn.query(`SELECT nama FROM playlist WHERE nama = '${searchBar}'`, (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -100,6 +114,29 @@ const sPLaylist= (conn, searchBar) => {
     });
 };
 
+const sGenre= (conn, searchBarG) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT nama FROM genre WHERE nama = '${searchBarG}'`, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
+
+const sSong= (conn, searchBarS) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT judul, artis, durasi FROM music WHERE judul = '${searchBarS}'`, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
 
 
 
@@ -113,10 +150,18 @@ app.get('/signup',async (req,res) =>{
     res.render('signup')
 });
 app.get('/HomePage',async (req,res) =>{
+    const conn = await dbConnect();
     var nama = req.session.name;
-    res.render('HomePage', {nama})
-    console.log(nama)
+    let dataSong = await getSong(conn);
+    const searchBarS = req.query.search
+    if(searchBarS != undefined && searchBarS.length){
+        dataSong= await sSong(conn, searchBarS)
+    }
+    console.log(searchBarS);
+    res.render('HomePage', { dataSong, nama, searchBarS });
+    
 });
+
 app.get('/homepage-admin',async (req,res) =>{
     res.render('homepage-admin')
 });
@@ -141,8 +186,15 @@ app.get('/MemberGenre',async (req,res) =>{
     const conn = await dbConnect()
     const nama = req.session.name; 
     let dataGenre = await getGenre(conn)
-    res.render('MemberGenre',{dataGenre, nama} )
+    const searchBarG = req.query.search
+    if(searchBarG != undefined && searchBarG.length){
+        dataGenre = await sGenre(conn, searchBarG)
+    }
+    res.render('MemberGenre', { dataGenre, nama, searchBarG });
+    
 });
+
+
 app.get('/Membership',async (req,res) =>{
     res.render('Membership')
 });
