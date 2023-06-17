@@ -61,17 +61,18 @@ const getUser = (conn, username, password) => {
 const getPlaylist = conn => {
     return new Promise((resolve, reject) => {
         conn.query
-        (`SELECT playlist.nama
-          FROM playlist JOIN user ON playlist.id_user = user.id
+            (`SELECT nama
+          FROM playlist 
            `, (err, result) => {
-            if(err){
-                reject(err);
-            } else{
-                resolve(result);
-            }
-        });
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
     });
 };
+
 
 const getGenre = conn => {
     return new Promise((resolve, reject) => {
@@ -87,6 +88,17 @@ const getGenre = conn => {
     });
 };
 
+const sPLaylist= (conn, searchBar) => {
+    return new Promise((resolve, reject) => {
+        conn.query(`SELECT nama FROM playlist WHERE nama= '${searchBar}'`, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
 
 
 
@@ -116,9 +128,14 @@ app.get('/MemberPlaylist', async (req, res) => {
     const conn = await dbConnect();
     const nama = req.session.name; // Definisikan variabel 'nama' di sini
     let dataPlaylist = await getPlaylist(conn);
-    res.render('MemberPlaylist', { dataPlaylist, nama });
-    console.log(nama);
-  }); 
+    const searchBar = req.query.search
+    if(searchBar != undefined && searchBar.length){
+        dataPlaylist = await sPLaylist(conn, searchBar)
+    }
+    console.log(searchBar);
+    res.render('MemberPlaylist', { dataPlaylist, nama, searchBar });
+    
+});
 
 app.get('/MemberGenre',async (req,res) =>{
     const conn = await dbConnect()
