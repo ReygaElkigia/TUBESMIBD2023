@@ -242,15 +242,44 @@ button {
   cursor: pointer;
 }
 
+
+
+/* Gaya untuk tabel */
 table {
-  color: white;
-  border-spacing: 10px; /* Memberikan jarak antara kolom */
-  
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin-top: 40px;
 }
 
-th,
+/* Gaya untuk header kolom */
+thead tr {
+  text-align: inherit;
+  color: white;
+  padding: 20px;
+}
+
+tr{
+  padding: 40px;
+}
+
+tbody{
+  margin-top: 20px;
+}
+
+/* Gaya untuk isi kolom */
+tbody tr:nth-child(odd) {
+  background-color: rgba(128, 128, 128, 0.2); /* Background color abu dengan opacity rendah pada baris ganjil */
+  margin-top: 20px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.1); /* Background color abu dengan opacity rendah pada baris genap */
+  margin-top: 20px;
+}
+
+/* Gaya untuk setiap sel di kolom */
 td {
-  padding: 10px; /* Memberikan jarak pada tiap kolom dan baris */
-  opacity: 0.5; /* Mengatur opacity tabel */
-  background-color: rgba(128, 128, 128, 0.3); /* Mengatur background color tabel */
+  padding: 20px; /* Jarak pada tiap kolom dan baris */
+  color: white; /* Font berwarna putih */
 }

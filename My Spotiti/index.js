@@ -74,6 +74,23 @@ const getPlaylist = conn => {
 };
   
 
+const getIsiPlaylist = async (conn, id_playlist) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT music.judul, music.artis, music.durasi
+      FROM music JOIN isiplaylist ON music.id_musik = isiplaylist.id_musik
+      WHERE isiplaylist.id_playlist = 1`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 const getGenre = conn => {
     return new Promise((resolve, reject) => {
         conn.query
@@ -138,7 +155,17 @@ const sSong= (conn, searchBarS) => {
     });
 };
 
-
+const sSongP= (conn, searchBarI) => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT judul, artis, durasi FROM music WHERE judul = '${searchBarI}'`, (err, result) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve(result);
+          }
+      });
+  });
+};
 
 
 app.get('/login',async (req,res) =>{
@@ -181,6 +208,21 @@ app.get('/MemberPlaylist', async (req, res) => {
     res.render('MemberPlaylist', { dataPlaylist, nama, searchBar });
     
 });
+
+app.get('/isiPlaylist',async (req,res) =>{
+  const conn = await dbConnect()
+  const nama = req.session.name; 
+  let dataIsiPlaylist = await getIsiPlaylist(conn)
+  const searchBarI = req.query.search
+  if(searchBarI != undefined && searchBarI.length){
+      dataIsiPlaylist = await sSongP(conn, searchBarI)
+  }
+  console.log(dataIsiPlaylist)
+  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI });
+  
+});
+
+
 
 app.get('/MemberGenre',async (req,res) =>{
     const conn = await dbConnect()

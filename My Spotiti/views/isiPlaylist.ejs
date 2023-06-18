@@ -1,0 +1,69 @@
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../HomePageStyle.css">
+  <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
+
+  <title>My Spotiti</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="column column-1">
+      <%- include('sideBarIsiP') %>
+    </div>
+    <div class="column column-2">
+        <div class="upgrade-button">
+          <button>Upgrade</button>
+        </div>
+        <div class="made-for-you">
+          <h2>Playlist For You</h2>
+          <div class="image-container">
+            <table>
+              <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Artis</th>
+                    <th>durasi</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% let i=1 %>
+                <% for(let row of dataIsiPlaylist) { %>
+                    <tr>
+                      <td>
+                        <%= row.judul %>
+                      </td>
+                      <td>
+                        <%= row.artis %>
+                      </td>
+                      <td>
+                        <%= row.durasi %>
+                      </td>
+                      <td>
+                        <button class="play-button">Play</button>
+                      </td> 
+                    </tr>
+                    <% i++ %>
+                      <% } %>
+  
+              </tbody>
+            </table>
+          </div>
+          <div><br></div>
+        </div>
+      </div>
+    <div class="column column-3">
+      <%- include('sideBar2') %>
+    </div>
+</body>
+
+</html>
+
+
+

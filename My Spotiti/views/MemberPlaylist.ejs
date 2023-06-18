@@ -1,14 +1,15 @@
-
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Playlist.css">
-    <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
-    
-    <title>My Spotiti</title> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../Playlist.css">
+  <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
+
+  <title>My Spotiti</title>
 </head>
+
 <body>
   <div class="container">
     <div class="column column-1">
@@ -21,25 +22,29 @@
       <div class="made-for-you">
         <h2>Playlist For You</h2>
         <div class="image-container">
-            <table>
-                <thead>
-                    <tr>
-                      
-                    </tr>
-                </thead>
-                <tbody>
-                    <% let i = 1 %>
-                    <% for(let row of dataPlaylist) { %>
-                        <tr>
-                           
-                            <td><%= row.nama %></td>
-                        </tr>
-                    
-                    <% i++ %>
+          <table>
+            <thead>
+              <tr>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let i=1 %>
+                <% for(let row of dataPlaylist) { %>
+                  <tr>
+
+                    <td>
+                      <a href="/isiPlaylist<%= row.id_playlist %>">
+                        <%= row.nama %>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <% i++ %>
                     <% } %>
 
-                </tbody>
-            </table>
+            </tbody>
+          </table>
         </div>
         <div><br></div>
       </div>
@@ -48,4 +53,8 @@
       <%- include('sideBar2') %>
     </div>
 </body>
+
 </html>
+
+
+

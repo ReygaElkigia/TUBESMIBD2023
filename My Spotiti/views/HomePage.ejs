@@ -16,7 +16,7 @@
     </div>
     <div class="column column-2">
       <div class="upgrade-button">
-        <button>Upgrade</button>
+        <a href="/Membership">upgrade</a>
       </div>
       <div class="made-for-you">
         <h2>MADE FOR YOU</h2>
@@ -26,13 +26,16 @@
           </a>
         </div>
         <div><br></div>
-        <h2>Recently Played</h2>
+        <h2>Song For You</h2>
         <ul class="song-list">
             <table>
               <thead>
-                <tr>judul</tr>
-                <tr>artis</tr>
-                <tr>durasi</tr>
+                <tr>
+                  <th>Judul</th>
+                  <th>Artis</th>
+                  <th>durasi</th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
                 <% let i=1 %>
@@ -47,6 +50,9 @@
                     <td>
                       <%= row.durasi %>
                     </td>
+                    <td>
+                      <button class="play-button">Play</button>
+                    </td> 
                   </tr>
                   <% i++ %>
                     <% } %>
