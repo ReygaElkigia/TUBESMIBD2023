@@ -3,6 +3,7 @@ import  express from 'express'
 import mysql from 'mysql';
 import session from 'express-session';
 import { render } from 'ejs';
+import { get } from 'http';
 
 const pool = mysql.createPool({
     user: 'root',
@@ -74,23 +75,6 @@ const getPlaylist = conn => {
 };
   
 
-const getIsiPlaylist = async (conn, id_playlist) => {
-  return new Promise((resolve, reject) => {
-    conn.query(
-      `SELECT music.judul, music.artis, music.durasi
-      FROM music JOIN isiplaylist ON music.id_musik = isiplaylist.id_musik
-      WHERE isiplaylist.id_playlist = 1`,
-      (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      }
-    );
-  });
-};
-
 const getGenre = conn => {
     return new Promise((resolve, reject) => {
         conn.query
@@ -130,6 +114,32 @@ const sPLaylist= (conn, searchBar) => {
         });
     });
 };
+
+const getIsiPlaylist = (conn, getValue) => {
+  console.log(getValue+ "r")
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT music.judul, music.artis
+      FROM music
+      JOIN isiplaylist ON music.id_musik = isiplaylist.id_musik
+      JOIN playlist ON isiplaylist.id_playlist = playlist.id_playlist
+      WHERE playlist.nama = '${getValue}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+function getValue(event) {
+  var getNama = event.target.getAttribute("getNama");
+  console.log(getNama);
+  // Gunakan nilai atribut untuk skrip lainnya di sini
+}
 
 const sGenre= (conn, searchBarG) => {
     return new Promise((resolve, reject) => {
@@ -184,7 +194,7 @@ app.get('/HomePage',async (req,res) =>{
     if(searchBarS != undefined && searchBarS.length){
         dataSong= await sSong(conn, searchBarS)
     }
-    console.log(searchBarS);
+    
     res.render('HomePage', { dataSong, nama, searchBarS });
     
 });
@@ -204,7 +214,7 @@ app.get('/MemberPlaylist', async (req, res) => {
     if(searchBar != undefined && searchBar.length){
         dataPlaylist = await sPLaylist(conn, searchBar)
     }
-    console.log(searchBar);
+    console.log(dataPlaylist);
     res.render('MemberPlaylist', { dataPlaylist, nama, searchBar });
     
 });
@@ -217,7 +227,7 @@ app.get('/isiPlaylist',async (req,res) =>{
   if(searchBarI != undefined && searchBarI.length){
       dataIsiPlaylist = await sSongP(conn, searchBarI)
   }
-  console.log(dataIsiPlaylist)
+  
   res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI });
   
 });

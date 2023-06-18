@@ -300,24 +300,43 @@ body {
   
   
   
-  .column.column-2 table {
-    border-radius: 10px;
-    background-repeat: no-repeat;
-    border-spacing: 10px;
-    background-position: center;
-    table-layout: fixed;
-    /* Mengatur lebar tabel menjadi tetap */
+ 
+ /* Gaya untuk tabel */
+table {
     width: 1000%;
-    height: 180%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 40px;
   }
   
-  .column.column-2 .image-container table td {
-    font-size: 30px;
-    /* Ubah ukuran teks sesuai kebutuhan */
-    color: #ffffff;
-    /* Ubah warna teks menjadi putih */
-    padding-left: 10%;
-    background-image: url(./assets/babi.jpg);
-    border-radius: 10px;
-    font-weight: 200px;
+  /* Gaya untuk header kolom */
+  thead tr {
+    text-align: inherit;
+    color: white;
+    padding: 20px;
+  }
+  
+  tr{
+    padding: 40px;
+  }
+  
+  tbody{
+    margin-top: 20px;
+  }
+  
+  /* Gaya untuk isi kolom */
+  tbody tr:nth-child(odd) {
+    background-color: rgba(128, 128, 128, 0.2); /* Background color abu dengan opacity rendah pada baris ganjil */
+    margin-top: 20px;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: rgba(128, 128, 128, 0.1); /* Background color abu dengan opacity rendah pada baris genap */
+    margin-top: 20px;
+  }
+  
+  /* Gaya untuk setiap sel di kolom */
+  td {
+    padding: 20px; /* Jarak pada tiap kolom dan baris */
+    color: white; /* Font berwarna putih */
   }
