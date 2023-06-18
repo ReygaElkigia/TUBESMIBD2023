@@ -69,4 +69,73 @@ body {
   table td button:nth-child(2) {
     background-color: #f44336;
   }
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  /* CSS untuk tombol */
+  button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  button:hover {
+    background-color: #45a049;
+  }
   
+  /* CSS untuk tampilan daftar musik */
+  .music-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+    /* CSS untuk tombol "Simpan" */
+    .save-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .save-button:hover {
+      background-color: #45a049;
+    }
+
+    /* CSS untuk tombol "Lihat Musik" */
+    .view-music-button {
+      background-color: #2196F3;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .view-music-button:hover {
+      background-color: #1e87db;
+    }

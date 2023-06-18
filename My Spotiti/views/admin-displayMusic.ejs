@@ -7,7 +7,7 @@
 <body>
   <div class="container">
     <h1>Music List</h1>
-    <ul id="music-list"></ul>
+    <div id="music-list"></div>
   </div>
 
   <script>
@@ -17,9 +17,23 @@
       var musicList = document.getElementById("music-list");
 
       musicData.forEach(function (musicTitle) {
+        var musicItem = document.createElement("div");
+        musicItem.classList.add("music-item");
+
         var li = document.createElement("li");
         li.textContent = musicTitle;
-        musicList.appendChild(li);
+
+        var addButton = document.createElement("button");
+        addButton.textContent = "Simpan";
+        addButton.addEventListener("click", function() {
+          var musicInput = document.getElementsByName("musicTitle")[0];
+          musicInput.value = musicTitle;
+        });
+
+        musicItem.appendChild(li);
+        musicItem.appendChild(addButton);
+
+        musicList.appendChild(musicItem);
       });
     } else {
       var container = document.getElementsByClassName("container")[0];
@@ -32,6 +46,5 @@
     <input type="text" name="musicTitle" placeholder="Music Title" required>
     <button type="submit">Simpan</button>
   </form>
-    
 </body>
 </html>
