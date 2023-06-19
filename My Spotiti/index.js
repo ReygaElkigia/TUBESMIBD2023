@@ -62,7 +62,7 @@ const getUser = (conn, username, password) => {
 const getPlaylist = conn => {
     return new Promise((resolve, reject) => {
         conn.query
-            (`SELECT nama
+            (`SELECT *
           FROM playlist 
            `, (err, result) => {
                 if (err) {
@@ -115,15 +115,16 @@ const sPLaylist= (conn, searchBar) => {
     });
 };
 
-const getIsiPlaylist = (conn, getValue) => {
-  console.log(getValue+ "r")
+const getIsiPlaylist = (conn, idP) => {
   return new Promise((resolve, reject) => {
     conn.query(
-      `SELECT music.judul, music.artis
-      FROM music
-      JOIN isiplaylist ON music.id_musik = isiplaylist.id_musik
-      JOIN playlist ON isiplaylist.id_playlist = playlist.id_playlist
-      WHERE playlist.nama = '${getValue}'`,
+      `SELECT music.judul, music.artis, music.durasi
+      from music
+      inner join isiplaylist ON
+      music.id_musik = isiplaylist.id_musik
+      inner join playlist ON
+      isiplaylist.id_playlist = playlist.id_playlist
+      WHERE playlist.id_playlist = '${idP}'`,
       (err, result) => {
         if (err) {
           reject(err);
@@ -211,24 +212,28 @@ app.get('/MemberPlaylist', async (req, res) => {
     const nama = req.session.name; // Definisikan variabel 'nama' di sini
     let dataPlaylist = await getPlaylist(conn);
     const searchBar = req.query.search
+    const idP = req.query.idP
+    console.log(idP + "N")
     if(searchBar != undefined && searchBar.length){
         dataPlaylist = await sPLaylist(conn, searchBar)
     }
     console.log(dataPlaylist);
-    res.render('MemberPlaylist', { dataPlaylist, nama, searchBar });
+    res.render('MemberPlaylist', { dataPlaylist, nama, searchBar,idP });
     
 });
 
 app.get('/isiPlaylist',async (req,res) =>{
   const conn = await dbConnect()
+  const idP = req.query.idP
   const nama = req.session.name; 
-  let dataIsiPlaylist = await getIsiPlaylist(conn)
-  const searchBarI = req.query.search
+  let dataIsiPlaylist = await getIsiPlaylist(conn, idP)
+  const searchBarI = req.body.search
+  console.log(dataIsiPlaylist)
   if(searchBarI != undefined && searchBarI.length){
       dataIsiPlaylist = await sSongP(conn, searchBarI)
   }
   
-  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI });
+  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI,idP});
   
 });
 

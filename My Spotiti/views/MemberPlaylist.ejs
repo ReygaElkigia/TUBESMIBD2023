@@ -31,14 +31,16 @@
             <tbody>
               <% let i=1 %>
                 <% for(let row of dataPlaylist) { %>
-                  <tr>
-                    <td value = "getNama" onclick="getValue(event)">
-                      <a href="/isiPlaylist<%= row.id_playlist %>">
-                        <%= row.nama %>
-                      </a>
-                    </td>
-                  </tr>
-
+                 
+                    <tr>
+                      <td>
+                        <input type="hidden" >
+                        <a href="/isiPlaylist?idP=<%= row.id_playlist %>">
+                          <%= row.nama %>
+                        </a>
+                      </td>
+                    </tr>
+                  </form>
                   <% i++ %>
                     <% } %>
 
@@ -52,6 +54,12 @@
       <%- include('sideBar2') %>
     </div>
 </body>
+
+<script>
+  function kirim(){
+    document.getElementById("form").submit();
+  }
+</script>
 
 </html>
 
