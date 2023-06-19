@@ -406,27 +406,34 @@ app.post('/admin-displayMusic', async (req, res) => {
 
   app.post('/signup', async (req, res) => {
     const conn = await dbConnect();
-    const { username, password } = req.body;
-    
+    const name = req.body.name;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+  
     if (username.length > 0 && password.length > 0) {
       // Cek apakah username sudah digunakan sebelumnya
       const existingUser = await getUser(conn, username, password);
-      
+  
       if (existingUser.length > 0) {
         res.send('Username sudah digunakan. Silakan gunakan username lain.');
       } else {
         // Insert data user baru ke dalam database
-        conn.query(`INSERT INTO user (username, password) VALUES ('${username}', '${password}')`, (err, result) => {
-          if (err) {
-            console.error(err);
-            res.status(500).send('Error saat memasukkan data ke database');
-          } else {
-            res.redirect('/login');
+        conn.query(
+          `INSERT INTO user (username, password, name, email) VALUES ('${username}', '${password}', '${name}', '${email}')`,
+          (err, result) => {
+            if (err) {
+              console.error(err);
+              res.status(500).send('Error saat memasukkan data ke database');
+            } else {
+              res.redirect('/login');
+            }
           }
-        });
+        );
       }
     } else {
       res.status(400).send('Invalid username or password');
     }
   });
+  
   
