@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="../HomePageStyle.css">
   <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
   <title>My Spotiti</title>
+  <style>
+    .hide {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,7 +21,7 @@
     </div>
     <div class="column column-2">
       <div class="upgrade-button">
-        <a href="/Membership">upgrade</a>
+        <a href="/Membership" id="upgradeLink">upgrade</a>
       </div>
       <div class="made-for-you">
         <h2>MADE FOR YOU</h2>
@@ -67,6 +72,16 @@
     <div class="column column-3">
       <%- include('sideBar2') %>
     </div>
+  </div>
+
+  <script>
+    const subscribeButton = document.querySelector('.subscribe-button');
+    const upgradeLink = document.getElementById('upgradeLink');
+    subscribeButton.addEventListener('click', () => {
+        upgradeLink.classList.add('hide');
+        window.location.href = "/Home";
+    });
+  </script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
 <body>
     <div class="container">
       <div class="column column-1">
-        <%- include('sideBarGenre') %>
+        <%- include('sideBarSubGenre') %>
       </div>
       <div class="column column-2">
         <div class="upgrade-button">
@@ -28,16 +28,16 @@
                   </thead>
                   <tbody>
                       <% let i = 1 %>
-                      <% for(let row of dataGenre) { %>
+                      <% for(let row of dataSubGenre) { %>
                           <tr>  
                               <td>
                                 <input type="hidden" >
-                                <a href="/subGenre?idG=<%= row.id_genre %>">
-                                <%= row.nama %>
-                              </a>
+                                <a href="/isiSubGenre?idSG=<%= row.id_subG %>">
+                                  <%= row.nama %>
+                                </a>
                               </td>  
                           </tr>
-                        
+                      
                       <% i++ %>
                       <% } %>
   

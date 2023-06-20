@@ -4,6 +4,7 @@ import mysql from 'mysql';
 import session from 'express-session';
 import { render } from 'ejs';
 import { get } from 'http';
+import e from 'express';
 
 const pool = mysql.createPool({
     user: 'root',
@@ -78,7 +79,7 @@ const getPlaylist = conn => {
 const getGenre = conn => {
     return new Promise((resolve, reject) => {
         conn.query
-        (`SELECT nama
+        (`SELECT *
           FROM genre `, (err, result) => {
             if(err){
                 reject(err);
@@ -89,11 +90,47 @@ const getGenre = conn => {
     });
 };
 
+const getSubGenre = (conn, idG) => {
+  return new Promise((resolve, reject) => {
+      conn.query
+      (`SELECT sub_genre.nama, sub_genre.id_subG
+      FROM sub_genre JOIN genre ON sub_genre.id_genre = genre.id_genre
+      WHERE genre.id_genre = '${idG}' `, (err, result) => {
+          if(err){
+              reject(err);
+          } else{
+              resolve(result);
+          }
+      });
+  });
+};
+
+const getIsiSubGenre = (conn, idSG) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT music.judul, music.artis, music.durasi
+      from music
+      inner join sub_genre ON
+      music.id_subG= sub_genre.id_subG     
+      WHERE sub_genre.id_subG  = '${idSG}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+
 const getSong= conn => {
     return new Promise((resolve, reject) => {
         conn.query
         (`SELECT judul, artis , durasi
-          FROM music `, (err, result) => {
+          FROM music 
+          LIMIT 5`, (err, result) => {
             if(err){
                 reject(err);
             } else{
@@ -103,17 +140,7 @@ const getSong= conn => {
     });
 };
 
-const sPLaylist= (conn, searchBar) => {
-    return new Promise((resolve, reject) => {
-        conn.query(`SELECT nama FROM playlist WHERE nama = '${searchBar}'`, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-};
+
 
 const getIsiPlaylist = (conn, idP) => {
   return new Promise((resolve, reject) => {
@@ -142,6 +169,18 @@ function getValue(event) {
   // Gunakan nilai atribut untuk skrip lainnya di sini
 }
 
+const sPLaylist= (conn, searchBar) => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT nama FROM playlist WHERE nama = '${searchBar}'`, (err, result) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve(result);
+          }
+      });
+  });
+};
+
 const sGenre= (conn, searchBarG) => {
     return new Promise((resolve, reject) => {
         conn.query(`SELECT nama FROM genre WHERE nama = '${searchBarG}'`, (err, result) => {
@@ -152,6 +191,18 @@ const sGenre= (conn, searchBarG) => {
             }
         });
     });
+};
+
+const sSubGenre= (conn, searchBarSG) => {
+  return new Promise((resolve, reject) => {
+      conn.query(`SELECT nama FROM sub_genre WHERE nama = '${searchBarSG}'`, (err, result) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve(result);
+          }
+      });
+  });
 };
 
 const sSong= (conn, searchBarS) => {
@@ -168,7 +219,13 @@ const sSong= (conn, searchBarS) => {
 
 const sSongP= (conn, searchBarI) => {
   return new Promise((resolve, reject) => {
-      conn.query(`SELECT judul, artis, durasi FROM music WHERE judul = '${searchBarI}'`, (err, result) => {
+      conn.query(`SELECT music.judul, music.artis, music.durasi
+      from music
+      inner join isiplaylist ON
+      music.id_musik = isiplaylist.id_musik
+      inner join playlist ON
+      isiplaylist.id_playlist = playlist.id_playlist
+      WHERE music.judul = '${searchBarI}'`, (err, result) => {
           if (err) {
               reject(err);
           } else {
@@ -213,11 +270,10 @@ app.get('/MemberPlaylist', async (req, res) => {
     let dataPlaylist = await getPlaylist(conn);
     const searchBar = req.query.search
     const idP = req.query.idP
-    console.log(idP + "N")
     if(searchBar != undefined && searchBar.length){
         dataPlaylist = await sPLaylist(conn, searchBar)
     }
-    console.log(dataPlaylist);
+
     res.render('MemberPlaylist', { dataPlaylist, nama, searchBar,idP });
     
 });
@@ -227,7 +283,7 @@ app.get('/isiPlaylist',async (req,res) =>{
   const idP = req.query.idP
   const nama = req.session.name; 
   let dataIsiPlaylist = await getIsiPlaylist(conn, idP)
-  const searchBarI = req.body.search
+  const searchBarI = req.query.search
   console.log(dataIsiPlaylist)
   if(searchBarI != undefined && searchBarI.length){
       dataIsiPlaylist = await sSongP(conn, searchBarI)
@@ -244,11 +300,40 @@ app.get('/MemberGenre',async (req,res) =>{
     const nama = req.session.name; 
     let dataGenre = await getGenre(conn)
     const searchBarG = req.query.search
+    const idG = req.query.idG
     if(searchBarG != undefined && searchBarG.length){
         dataGenre = await sGenre(conn, searchBarG)
     }
-    res.render('MemberGenre', { dataGenre, nama, searchBarG });
+    res.render('MemberGenre', { dataGenre, nama, searchBarG, idG });
     
+});
+
+app.get('/subGenre',async (req,res) =>{
+  const conn = await dbConnect()
+  const idG = req.query.idG
+  const nama = req.session.name; 
+  let dataSubGenre = await getSubGenre(conn, idG)
+  const searchBarSG = req.query.search
+  if(searchBarSG != undefined && searchBarSG.length){
+    dataSubGenre = await sSubGenre(conn, searchBarSG)
+  }
+  
+  res.render('subGenre', { dataSubGenre, nama, searchBarSG,idG});
+  
+});
+
+app.get('/isiSubGenre',async (req,res) =>{
+  const conn = await dbConnect()
+  const idSG = req.query.idSG
+  const nama = req.session.name; 
+  let dataIsiSubGenre = await getIsiSubGenre(conn, idSG)
+  const searchBarI = req.query.search
+  if(searchBarI != undefined && searchBarI.length){
+    dataIsiSubGenre = await sSongP(conn, searchBarI)
+  }
+  
+  res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI,idSG});
+  
 });
 
 
