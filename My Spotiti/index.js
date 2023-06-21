@@ -141,6 +141,43 @@ const getSong= conn => {
 };
 
 
+const cekMembership = (conn, idU) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT *
+      from user JOIN membership ON user.id = membership.id_user
+      WHERE '${idU}' = membership.id_user`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+const getMembership = (conn,getType, getTglMulai, getTglAkhir, idU) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `INSERT INTO membership (subscription, tanggal_awal, tanggal_akhir, id_user)
+       VALUE ('${getType}','${getTglMulai}', '${getTglAkhir}', '${idU}') `,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+
+
+
+
 
 const getIsiPlaylist = (conn, idP) => {
   return new Promise((resolve, reject) => {
@@ -367,6 +404,7 @@ app.post('/login',async (req,res) =>{
         const dataUser = await getUser(conn, username, password)
         if(dataUser.length > 0){
             req.session.name = dataUser[0].nama;
+            req.session.idU = dataUser[0].id;
             res.redirect('/HomePage')
         }
         else{
@@ -522,3 +560,34 @@ app.post('/admin-displayMusic', async (req, res) => {
   });
   
   
+  app.get('/buyMembership/:getType', async (req, res) => {
+    const conn = await dbConnect();
+    const idU = req.session.id
+    const {getType} = req.params
+    const date = new Date()
+    let day = date.getDate(); // Mendapatkan hari (1-31)
+    let month = date.getMonth() + 1; // Mendapatkan bulan (0-11), tambahkan 1 karena bulan dihitung mulai dari 0
+    let year = date.getFullYear()
+
+    if(day < 10){
+      day = "0" + day
+    }
+
+    if(month < 10){
+      month = "0" + month
+    }
+
+    const tglAwal = year + "-" + month + "-" + day 
+    // const kuda = await getMembership(conn,getType, getTglMulai, getTglAkhir, idU)
+    if(getType == '1month'){
+      
+       
+      
+      console.log(tglAwal)
+    }
+    
+    
+  });
+
+
+
