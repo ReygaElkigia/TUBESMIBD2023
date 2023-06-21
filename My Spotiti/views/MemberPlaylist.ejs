@@ -16,11 +16,14 @@
       <%- include('sideBar') %>
     </div>
     <div class="column column-2">
-      <div class="upgrade-button">
-        <button>Upgrade</button>
-      </div>
       <div class="made-for-you">
         <h2>Playlist For You</h2>
+        <div>
+          <form id="searchForm" action="/MemberPlaylist" method="get">
+              <input type="text" name="search" placeholder="Search in Playlist.."  />
+              <button type="submit">Search</button>
+            </form>
+      </div>
         <div class="image-container">
           <table>
             <thead>

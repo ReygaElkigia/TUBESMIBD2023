@@ -12,14 +12,17 @@
 <body>
     <div class="container">
       <div class="column column-1">
-        <%- include('sideBarSubGenre') %>
+        <%- include('sideBar') %>
       </div>
       <div class="column column-2">
-        <div class="upgrade-button">
-          <button>Upgrade</button>
-        </div>
         <div class="made-for-you">
           <h2>Music Genre's</h2>
+          <div>
+            <form id="searchForm" action="/subGenre" method="get">
+                <input type="text" name="search" placeholder="Search genre"  />
+                <button type="submit">Search</button>
+              </form>
+        </div>
           <div class="image-container">
               <table>
                   <thead>

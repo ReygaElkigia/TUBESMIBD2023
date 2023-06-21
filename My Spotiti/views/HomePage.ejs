@@ -7,19 +7,21 @@
   <link rel="stylesheet" href="../HomePageStyle.css">
   <script src="https://kit.fontawesome.com/985f81e0fc.js" crossorigin="anonymous"></script>
   <title>My Spotiti</title>
-  <style>
-    .hide {
-      display: none;
-    }
-  </style>
 </head>
 
 <body>
   <div class="container">
     <div class="column column-1">
-      <%- include('sideBarHome') %>
+      <%- include('sideBar') %>
     </div>
     <div class="column column-2">
+      <div>
+        <form id="searchForm" action="/HomePage" method="get">
+            <input type="text" name="search" placeholder="Search song.."  />
+            <button type="submit">Search</button>
+          </form>
+    </div>
+
       <div class="upgrade-button">
         <a href="/Membership" id="upgradeLink">upgrade</a>
       </div>
