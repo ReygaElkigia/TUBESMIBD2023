@@ -77,7 +77,7 @@ const getPlaylist = conn => {
 
 const getMyPlaylist = (conn, idU) => {
   return new Promise((resolve, reject) => {
-    console.log(idU + "r" )
+    console.log(idU + "r")
     conn.query
       (`SELECT *
         FROM playlist 
@@ -176,7 +176,7 @@ const cekMembership = (conn, idU) => {
 const getMembership = (conn, getType, getTglMulai, getTglAkhir, idU) => {
   return new Promise((resolve, reject) => {
     conn.query(
-      `INSERT INTO membership (subscription, tanggal_awal, tanggal_akhir, id_user)
+      `INSERT INTO membership (subscription, tanggal_mulai, tanggal_akhir, id_user)
        VALUE ('${getType}','${getTglMulai}', '${getTglAkhir}', '${idU}') `,
       (err, result) => {
         if (err) {
@@ -289,8 +289,6 @@ const sSongP = (conn, searchBarI) => {
 
 
 app.get('/login', async (req, res) => {
-  const conn = await dbConnect()
-  var nama = req.session.name
   res.render('login')
 });
 app.get('/signup', async (req, res) => {
@@ -299,13 +297,23 @@ app.get('/signup', async (req, res) => {
 app.get('/HomePage', async (req, res) => {
   const conn = await dbConnect();
   var nama = req.session.name;
+  const idU = req.session.idU
   let dataSong = await getSong(conn);
   const searchBarS = req.query.search
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBarS != undefined && searchBarS.length) {
     dataSong = await sSong(conn, searchBarS)
   }
-
-  res.render('HomePage', { dataSong, nama, searchBarS });
+  conn.release()
+  res.render('HomePage', { dataSong, nama, searchBarS, status });
 
 });
 
@@ -325,7 +333,7 @@ app.get('/MemberPlaylist', async (req, res) => {
   if (searchBar != undefined && searchBar.length) {
     dataPlaylist = await sPLaylist(conn, searchBar)
   }
-
+  conn.release()
   res.render('MemberPlaylist', { dataPlaylist, nama, searchBar, idP });
 
 });
@@ -340,7 +348,7 @@ app.get('/isiPlaylist', async (req, res) => {
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiPlaylist = await sSongP(conn, searchBarI)
   }
-
+  conn.release()
   res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI, idP });
 
 });
@@ -356,6 +364,7 @@ app.get('/MemberGenre', async (req, res) => {
   if (searchBarG != undefined && searchBarG.length) {
     dataGenre = await sGenre(conn, searchBarG)
   }
+  conn.release()
   res.render('MemberGenre', { dataGenre, nama, searchBarG, idG });
 
 });
@@ -365,11 +374,11 @@ app.get('/subGenre', async (req, res) => {
   const idG = req.query.idG
   const nama = req.session.name;
   let dataSubGenre = await getSubGenre(conn, idG)
-  const searchBarSG = req.query.search 
+  const searchBarSG = req.query.search
   if (searchBarSG != undefined && searchBarSG.length) {
     dataSubGenre = await sSubGenre(conn, searchBarSG)
   }
-
+  conn.release()
   res.render('subGenre', { dataSubGenre, nama, searchBarSG, idG });
 
 });
@@ -383,7 +392,7 @@ app.get('/isiSubGenre', async (req, res) => {
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiSubGenre = await sSongP(conn, searchBarI)
   }
-
+  conn.release()
   res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG });
 
 });
@@ -392,25 +401,25 @@ app.get('/isiSubGenre', async (req, res) => {
 app.get('/LikedSong', async (req, res) => {
   const conn = await dbConnect();
   const nama = req.session.name; // Definisikan variabel 'nama' di sini
-  
+
   const searchBar = req.query.search
   const idP = req.query.idP
   const idU = req.session.idU
-  let dataLikedSong= await getLikedSong(conn, idU);
+  let dataLikedSong = await getSong(conn, idU);
   console.log(nama)
   console.log(idU)
   if (searchBar != undefined && searchBar.length) {
     dataLikedSong = await sPLaylist(conn, searchBar)
   }
-
-  res.render('/LikedSong', { dataLikedSong, nama, searchBar, idP, idU });
+  conn.release()
+  res.render('LikedSong', { dataLikedSong, nama, searchBar, idP, idU });
 
 });
 
 app.get('/MyPlaylist', async (req, res) => {
   const conn = await dbConnect();
   const nama = req.session.name; // Definisikan variabel 'nama' di sini
-  
+
   const searchBar = req.query.search
   const idP = req.query.idP
   const idU = req.session.idU
@@ -420,7 +429,7 @@ app.get('/MyPlaylist', async (req, res) => {
   if (searchBar != undefined && searchBar.length) {
     dataMyPlaylist = await sPLaylist(conn, searchBar)
   }
-
+  conn.release()
   res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU });
 
 });
@@ -457,8 +466,22 @@ app.post('/login', async (req, res) => {
     if (dataUser.length > 0) {
       req.session.name = dataUser[0].nama;
       req.session.idU = dataUser[0].id;
-      res.redirect('/HomePage')
-      
+      var nama = req.session.name;
+      const idU = req.session.idU
+      let dataSong = await getSong(conn);
+      const searchBarS = ""
+      const statusMember = await cekMembership(conn, idU)
+      let status = "";
+      if (statusMember.length > 0) {
+        status = "Membership"
+      }
+      else {
+        status = "nonMembership"
+
+      }
+      conn.release()
+      res.render('HomePage', {dataSong, nama, searchBarS, status })
+
     }
     else {
       res.render('login')
@@ -615,7 +638,7 @@ app.post('/signup', async (req, res) => {
 
 app.get('/buyMembership/:getType', async (req, res) => {
   const conn = await dbConnect();
-  const idU = req.session.id
+  const idU = req.session.idU
   const { getType } = req.params
   const date = new Date()
   let day = date.getDate().toString().padStart(2, '0'); // Mendapatkan hari (1-31)
@@ -638,8 +661,8 @@ app.get('/buyMembership/:getType', async (req, res) => {
   // const kuda = await getMembership(conn,getType, getTglMulai, getTglAkhir, idU)
   if (getType == '1month') {
     let monthFinal = parseInt(month) + 1
-    date.setMonth(monthFinal-1)
-    console.log(date) 
+    date.setMonth(monthFinal - 1)
+    console.log(date)
     console.log(monthFinal)
     day = date.getDate(date)
     month = date.getMonth(date) + 1
@@ -651,8 +674,8 @@ app.get('/buyMembership/:getType', async (req, res) => {
   if (getType == '3month') {
 
     let monthFinal = parseInt(month) + 3
-    date.setMonth(monthFinal-1)
-    console.log(date) 
+    date.setMonth(monthFinal - 1)
+    console.log(date)
     console.log(monthFinal)
     day = date.getDate(date)
     month = date.getMonth(date) + 1
@@ -664,8 +687,8 @@ app.get('/buyMembership/:getType', async (req, res) => {
   if (getType == '6month') {
 
     let monthFinal = parseInt(month) + 6
-    date.setMonth(monthFinal-1)
-    console.log(date) 
+    date.setMonth(monthFinal - 1)
+    console.log(date)
     console.log(monthFinal)
     day = date.getDate(date)
     month = date.getMonth(date) + 1
@@ -677,8 +700,8 @@ app.get('/buyMembership/:getType', async (req, res) => {
   if (getType == '1year') {
 
     let yearFinal = parseInt(year) + 1
-    date.setFullYear(yearFinal-1)
-    console.log(date) 
+    date.setFullYear(yearFinal - 1)
+    console.log(date)
     console.log(yearFinal)
     day = date.getDate(date)
     month = date.getMonth(date) + 1
@@ -686,8 +709,11 @@ app.get('/buyMembership/:getType', async (req, res) => {
 
     tglAkhir = year + "-" + month + "-" + day
   }
-  
+
   console.log(tglAkhir)
+
+  const inputN = await getMembership(conn, getType, tglAwal, tglAkhir, idU);
+  res.redirect('/HomePage')
 });
 
 

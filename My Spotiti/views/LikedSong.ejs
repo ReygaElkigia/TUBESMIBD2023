@@ -38,23 +38,23 @@
               </thead>
               <tbody>
                 <% let i=1 %>
-                <% for(let row of dataIsiPlaylist) { %>
-                    <tr>
-                      <td>
-                        <%= row.judul %>
-                      </td>
-                      <td>
-                        <%= row.artis %>
-                      </td>
-                      <td>
-                        <%= row.durasi %>
-                      </td>
-                      <td>
-                        <button class="play-button">Play</button>
-                      </td> 
-                    </tr>
-                    <% i++ %>
-                      <% } %>
+                <% for(let row of dataLikedSong) { %>
+                  <tr>
+                    <td>
+                      <%= row.judul %>
+                    </td>
+                    <td>
+                      <%= row.artis %>
+                    </td>
+                    <td>
+                      <%= row.durasi %>
+                    </td>
+                    <td>
+                      <button class="play-button">Play</button>
+                    </td> 
+                  </tr>
+                  <% i++ %>
+                    <% } %>
   
               </tbody>
             </table>
