@@ -452,6 +452,9 @@ app.get('/admin-displayMusic', async (req, res) => {
 app.get('/admin-displayMusic.ejs', async (req, res) => {
   res.render('admin-displayMusic')
 });
+app.get('/TambahGenre', async (req, res) => {
+  res.render('TambahGenre')
+});
 
 
 
@@ -716,5 +719,125 @@ app.get('/buyMembership/:getType', async (req, res) => {
   res.redirect('/HomePage')
 });
 
+app.post('/TambahGenre', async (req, res) => {
+  try {
+    const conn = await dbConnect();
+    const name = req.body.name;
+    console.log(name);
+    conn.query(
+      `INSERT INTO genre (nama) VALUES ('${name}')`, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error while inserting data into the database');
+      } else {
+        res.redirect('/TambahGenre');
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error connecting to the database');
+  }
+});
 
 
+
+app.post('/TambahSubGenre', async (req, res) => {
+  try {
+    const conn = await dbConnect();
+    const name = req.body.name;
+    const genre = req.body.genre;
+
+    const query = `INSERT INTO sub_genre (nama, id_genre) VALUES ('${name}', ${genre})`;
+
+    conn.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error while inserting data into the database');
+      } else {
+        res.redirect('/TambahSubGenre');
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error connecting to the database');
+  }
+});
+
+
+const getListGenre = conn => {
+  return new Promise((resolve, reject) => {
+    conn.query('SELECT * FROM genre', (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+app.get('/TambahSubGenre', async (req, res) => {
+  try {
+    const conn = await dbConnect();
+    const nama = req.session.name;
+    const dataListGenre = await getListGenre(conn);
+
+    console.log(dataListGenre); // Cetak dataListGenre untuk memeriksa datanya
+
+    const selectedValue = req.query.genre;
+    console.log(selectedValue + "asda");
+    res.render('TambahSubGenre', { dataListGenre, nama });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error connecting to the database');
+  }
+});
+app.get('/TambahMusic', async (req, res) => {
+  try {
+    const conn = await dbConnect();
+    const nama = req.session.name;
+    const dataListSubGenre = await getListSubGenre(conn);
+
+    console.log(dataListSubGenre); // Cetak dataListSubGenre untuk memeriksa datanya
+
+    res.render('TambahMusic', { dataListSubGenre, nama });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error connecting to the database');
+  }
+});
+
+const getListSubGenre = conn => {
+  return new Promise((resolve, reject) => {
+    conn.query('SELECT * FROM sub_genre', (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+app.post('/TambahMusic', async (req, res) => {
+  try {
+    const conn = await dbConnect();
+    const judul = req.body.judul;
+    const artis = req.body.artis;
+    const durasi = req.body.durasi;
+    const subgenre = req.body.subgenre;
+    console.log(judul)
+    const query = `INSERT INTO music (judul, artis, durasi, id_subG) VALUES ('${judul}', '${artis}', '${durasi}', ${subgenre})`;
+
+    conn.query(query, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error while inserting data into the database');
+      } else {
+        res.redirect('/TambahMusic');
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error connecting to the database');
+  }
+});

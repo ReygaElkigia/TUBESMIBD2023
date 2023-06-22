@@ -3,42 +3,43 @@
 <head>
   <title>Admin MySpotiti - Home</title>
   <link rel="stylesheet" type="text/css" href="homepage-admin.css">
-  
+  <link rel="stylesheet" href="../sideBar.css">
 </head>
 <body>
+  <div class="sideBarsemua">
+    <h1>MY SPOTITI</h1>
+    <div><br> </div>
+
+    <div class="menu">
+        <h2>Menu</h2>
+        <div class="submenu">
+            <div>
+                <i class="fa-sharp fa-solid fa-house"></i> 
+                <a href="/TambahGenre">Tambah Genre</a> 
+            </div>
+            <div>
+                <i class="fa-solid fa-music"></i> 
+                <a href="/TambahSubGenre">Tambah Sub-Genre</a> 
+            </div>
+            <div>
+                <i class="fa-solid fa-headphones"></i>
+                <a href="/TambahMusic">Tambah Lagu</a> 
+            </div>
+        </div>
+    </div>
+        <div class="menu">
+        <h2>Other</h2>
+        <div class="submenu">
+            
+            <div>
+                <i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> 
+                <a href="/login">Log-Out</a> 
+            </div>
+        </div>
+    </div>
+  </div>
   <div class="container">
     <h1>Welcome, Admin MySpotiti</h1>
-    <div class="section">
-      <h2>Manage Genre</h2>
-      <form class="admin-form" id="genre-form">
-        <input type="text" placeholder="Genre Name" id="genre-input" required>
-        <button type="button" onclick="addGenre()">Add Genre</button>
-      </form>
-      <ul id="genre-list"></ul>
     </div>
-    <div class="section">
-      <h2>Manage Sub-Genre</h2>
-      <form class="admin-form" id="subgenre-form">
-        <input type="text" placeholder="Sub-Genre Name" id="subgenre-input" required>
-        <select id="genre-select"></select>
-        <button type="button" onclick="addSubgenre()">Add Sub-Genre</button>
-      </form>
-      <ul id="subgenre-list"></ul>
-    </div>
-    <div class="section">
-      <h2>Manage Music</h2>
-      <form class="admin-form" id="music-form">
-        <input type="text" placeholder="Music Title" id="music-input" required>
-        <select id="genre-select"></select>
-        <select id="subgenre-select"></select>
-        <button type="button" onclick="addMusic()">Add Music</button>
-      </form>
-      <ul id="music-list"></ul>
-    </div>
-    <button type="button" onclick="saveData()" class="save-button">Simpan</button>
-    <a href="admin-displayMusic.ejs"><button type="button" class="view-music-button">Lihat Musik</button></a>
-  </div>
-
-  <script src="homepage-admin.js"></script>
-</body>
+  </body>
 </html>

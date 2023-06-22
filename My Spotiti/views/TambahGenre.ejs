@@ -1,0 +1,57 @@
+<head>
+    <title>Admin MySpotiti - Home</title>
+    <link rel="stylesheet" type="text/css" href="homepage-admin.css">
+    <link rel="stylesheet" href="../sideBar.css">
+  </head>
+  <body>
+    <div class="sideBarsemua">
+      <h1>MY SPOTITI</h1>
+      <div><br> </div>
+  
+      <div class="menu">
+          <h2>Menu</h2>
+          <div class="submenu">
+              <div>
+                  <i class="fa-sharp fa-solid fa-house"></i> 
+                  <a href="/TambahGenre">Tambah Genre</a> 
+              </div>
+              <div>
+                  <i class="fa-solid fa-music"></i> 
+                  <a href="/TambahSubGenre">Tambah Sub-Genre</a> 
+              </div>
+              <div>
+                  <i class="fa-solid fa-headphones"></i>
+                  <a href="/TambahMusic">Tambah Lagu</a> 
+              </div>
+          </div>
+      </div>
+          <div class="menu">
+          <h2>Other</h2>
+          <div class="submenu">
+              
+              <div>
+                  <i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> 
+                  <a href="/login">Log-Out</a> 
+              </div>
+          </div>
+      </div>
+    </div>
+    </body>
+<div class="container">
+    <h1>Welcome, Admin MySpotiti</h1>
+    <div class="section">
+      <h2>Manage Genre</h2>
+      <div class="container">
+        <form method="post" action="/TambahGenre">
+          <div class="form-group">
+            <label for="name">Nama Genre :</label>
+            <input type="text" id="name" name="name" placeholder="Masukan Nama Genre">
+          </div>
+          <div class="form-group">
+            <input type="submit" class = "save-button" value="Simpan"></input>
+          </div>
+        </form>
+      <ul id="genre-list"></ul>
+    </div>
+  </div>
+</body>
