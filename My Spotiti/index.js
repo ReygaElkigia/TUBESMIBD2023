@@ -95,7 +95,8 @@ const getGenre = conn => {
   return new Promise((resolve, reject) => {
     conn.query
       (`SELECT *
-          FROM genre `, (err, result) => {
+          FROM genre
+          LIMIT 3 `, (err, result) => {
         if (err) {
           reject(err);
         } else {
@@ -548,7 +549,7 @@ app.post('/login', async (req, res) => {
         res.render('homepage-admin')
       }
       else{
-        res.render('pimpinan')
+        res.render('homepage-pimpinan')
       }
       
 
@@ -849,10 +850,10 @@ app.get('/monthly-pimpinan', async (req, res) => {
 
 const getPlaybackTransaction = (conn) => {
   return new Promise((resolve, reject) => {
-    const query = `SELECT user.id, user.nama, music.judul, genre.nama as genrename, sub_genre.nama as sub_genrename
+    const query = `SELECT user.nama, music.judul, genre.nama as genrename, sub_genre.nama as sub_genrename
     FROM playback_transaction
     JOIN music ON playback_transaction.id_musik = music.id_musik
-    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    JOIN sub_genre ON music.id_subG = sub_genre.id_subG
     JOIN genre ON sub_genre.id_genre = genre.id_genre
     JOIN user ON playback_transaction.id_user = user.id`;
 
@@ -871,6 +872,7 @@ app.get('/music-playback', async (req, res) => {
 
   try {
     const playback_transaction = await getPlaybackTransaction(conn);
+    console.log(playback_transaction)
     res.render('music-playback', { playback_transaction });
   } catch (err) {
     console.error(err);
@@ -886,7 +888,8 @@ const getStatisticSong = (conn) => {
     FROM playback_transaction
     JOIN music ON playback_transaction.id_musik = music.id_musik
     GROUP BY music.judul
-    ORDER BY totalplay DESC`;
+    ORDER BY totalplay DESC
+    LIMIT 5`;
     
     conn.query(query, (err, result) => {
       if (err) {
@@ -919,9 +922,10 @@ const getStatisticSubGenre = (conn) => {
     const query = `SELECT  sub_genre.nama, COUNT (playback_transaction.id_musik) as totalplay
     FROM playback_transaction
     JOIN music ON playback_transaction.id_musik = music.id_musik
-    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    JOIN sub_genre ON music.id_subG= sub_genre.id_subG
     GROUP BY sub_genre.nama
-    ORDER BY totalplay DESC`;
+    ORDER BY totalplay DESC
+    LIMIT 5`;
     
     conn.query(query, (err, result) => {
       if (err) {
@@ -953,10 +957,11 @@ const getStatisticGenre = (conn) => {
     const query = `SELECT genre.nama, COUNT (playback_transaction.id_musik) as totalplay
     FROM playback_transaction
     JOIN music ON playback_transaction.id_musik = music.id_musik
-    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    JOIN sub_genre ON music.id_subG= sub_genre.id_subG
     JOIN genre ON sub_genre.id_genre = genre.id_genre
     GROUP BY genre.nama
-    ORDER BY totalplay DESC`;
+    ORDER BY totalplay DESC
+    LIMIT 5`;
     
     conn.query(query, (err, result) => {
       if (err) {
