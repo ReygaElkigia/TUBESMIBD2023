@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY SPOTITI</title>
+  <link rel="stylesheet" href="playback_transaction_status.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="title">
+    <h1>MY SPOTITI</h1>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>HI, Pimpinan</h2>
+    </div>
+    <ul class="menu">
+      <li class="with-icon"><a href="homepage-pimpinan">Home <i class="fas fa-home"></i></a></li>
+      <li class="with-icon"><a href="monthly-pimpinan">Monthly Transaction Report <i class="fas fa-file"></i></a></li>
+      <li class="with-icon"><a href="music-playback">Music Playback Transaction Report <i class="fas fa-music"></i></a></li>
+      <li class="with-icon"><a href="#">Playback Transaction Status <i class="fas fa-play-circle"></i></a></li>
+    </ul>
+
+    <div class="other">
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+      <a href="login"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn">Top Charts <i class="fas fa-chevron-down"></i></button>
+    <div class="dropdown-content">
+      <a href="#">Top Song</a>
+      <a href="playback_transaction_status_genre">Top Genre</a>
+      <a href="playback_transaction_status_subgenre">Top Sub-genre</a>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="songChart"></canvas>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const StatisticSong = JSON.parse('<%- JSON.stringify(getSong) %>');
+      
+      
+      const labels = StatisticSong.map(item => item.judul);
+      const data = StatisticSong.map(item => item.totalplay);
+  
+      // Konfigurasi grafik bar menggunakan Chart.js
+      const ctx = document.getElementById('songChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'ID',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        },
+        plugins: {
+          barPercentage: 0.6,
+          categoryPercentage: 0.8
+        }
+      });
+    });
+  </script>
+  
+</body>
+
+</html>

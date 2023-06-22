@@ -523,100 +523,6 @@ app.post('/admin-displayMusic', async (req, res) => {
     conn.release();
   }
 });
-const getMyMusicData = (conn) => {
-  return new Promise((resolve, reject) => {
-    conn.query('SELECT * FROM my_music_data', (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-app.get('/music-playback', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const myMusicData = await getMyMusicData(conn);
-    res.render('music-playback', { myMusicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
-const getMusicData = (conn) => {
-  return new Promise((resolve, reject) => {
-    conn.query('SELECT * FROM music_data', (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-app.get('/monthly-pimpinan', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const musicData = await getMusicData(conn);
-    res.render('monthly-pimpinan', { musicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
-app.get('/playback-graph-transaction', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const musicData = await getMusicData(conn);
-    res.render('playback-graph-transaction', { musicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
-app.get('/playback-graph-topsong', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const myMusicData = await getMyMusicData(conn);
-    res.render('playback-graph-topsong', { myMusicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
-app.get('/playback-graph-topgenre', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const myMusicData = await getMyMusicData(conn);
-    res.render('playback-graph-topgenre', { myMusicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
-app.get('/playback-graph-topsubgenre', async (req, res) => {
-  const conn = await dbConnect();
-  try {
-    const myMusicData = await getMyMusicData(conn);
-    res.render('playback-graph-topsubgenre', { myMusicData });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } finally {
-    conn.release();
-  }
-});
 
 app.post('/signup', async (req, res) => {
   const conn = await dbConnect();
@@ -851,5 +757,167 @@ app.post('/TambahMusic', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send('Error connecting to the database');
+  }
+});
+
+const getMemberships = (conn) => {
+  return new Promise((resolve, reject) => {
+    conn.query('SELECT * FROM membership', (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+app.get('/monthly-pimpinan', async (req, res) => {
+  const conn = await dbConnect();
+
+  try {
+    const Membership = await getMemberships(conn);
+    res.render('monthly-pimpinan', { Membership });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    conn.release();
+  }
+});
+
+const getPlaybackTransaction = (conn) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT user.id, user.nama, music.judul, genre.nama as genrename, sub_genre.nama as sub_genrename
+    FROM playback_transaction
+    JOIN music ON playback_transaction.id_musik = music.id_musik
+    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    JOIN genre ON sub_genre.id_genre = genre.id_genre
+    JOIN user ON playback_transaction.id_user = user.id`;
+
+    conn.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+app.get('/music-playback', async (req, res) => {
+  const conn = await dbConnect();
+
+  try {
+    const playback_transaction = await getPlaybackTransaction(conn);
+    res.render('music-playback', { playback_transaction });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    conn.release();
+  }
+});
+
+const getStatisticSong = (conn) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT  music.judul, COUNT (playback_transaction.id_musik) as totalplay
+    FROM playback_transaction
+    JOIN music ON playback_transaction.id_musik = music.id_musik
+    GROUP BY music.judul
+    ORDER BY totalplay DESC`;
+    
+    conn.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+
+app.get('/playback_transaction_status_song', async (req, res) => {
+  const conn = await dbConnect();
+
+  try {
+    const getSong = await getStatisticSong(conn);
+    console.log(getSong)
+    res.render('playback_transaction_status_song', {  getSong });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    conn.release();
+  }
+});
+
+const getStatisticSubGenre = (conn) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT  sub_genre.nama, COUNT (playback_transaction.id_musik) as totalplay
+    FROM playback_transaction
+    JOIN music ON playback_transaction.id_musik = music.id_musik
+    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    GROUP BY sub_genre.nama
+    ORDER BY totalplay DESC`;
+    
+    conn.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+app.get('/playback_transaction_status_subgenre', async (req, res) => {
+  const conn = await dbConnect();
+
+  try {
+    const getSubGenre = await getStatisticSubGenre(conn);
+    console.log(getSubGenre)
+    res.render('playback_transaction_status_subgenre', {  getSubGenre });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    conn.release();
+  }
+});
+
+const getStatisticGenre = (conn) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT genre.nama, COUNT (playback_transaction.id_musik) as totalplay
+    FROM playback_transaction
+    JOIN music ON playback_transaction.id_musik = music.id_musik
+    JOIN sub_genre ON music.id_sub_genre = sub_genre.id_sub_genre
+    JOIN genre ON sub_genre.id_genre = genre.id_genre
+    GROUP BY genre.nama
+    ORDER BY totalplay DESC`;
+    
+    conn.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+app.get('/playback_transaction_status_genre', async (req, res) => {
+  const conn = await dbConnect();
+
+  try {
+    const getGenre = await getStatisticGenre(conn);
+    console.log(getGenre)
+    res.render('playback_transaction_status_genre', {  getGenre });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } finally {
+    conn.release();
   }
 });

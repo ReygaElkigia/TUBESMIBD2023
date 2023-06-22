@@ -2,86 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY SPOTITI</title>
-    <link rel="stylesheet" href="music-playback.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY SPOTITI</title>
+  <link rel="stylesheet" href="monthly-pimpinan.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
-    <div class="title">
-        <h1>MY SPOTITI</h1>
+  <div class="title">
+    <h1>MY SPOTITI</h1>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>HI, Pimpinan</h2>
     </div>
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>HI, Pimpinan</h2>
-        </div>
-        <ul class="menu">
-            <li class="with-icon"><a href="#">Home <i class="fas fa-home"></i></a></li>
-            <li class="with-icon"><a href="#">Monthly Transaction Report <i class="fas fa-file"></i></a></li>
-            <li class="with-icon"><a href="#">Music Playback Transaction Report <i class="fas fa-music"></i></a></li>
-            <li class="with-icon"><a href="#">Playback Transaction Status <i class="fas fa-play-circle"></i></a></li>
-        </ul>
+    <ul class="menu">
+      <li class="with-icon"><a href="homepage-pimpinan">Home <i class="fas fa-home"></i></a></li>
+      <li class="with-icon"><a href="monthly-pimpinan">Monthly Transaction Report <i class="fas fa-file"></i></a></li>
+      <li class="with-icon"><a href="#">Music Playback Transaction Report <i class="fas fa-music"></i></a></li>
+      <li class="with-icon"><a href="playback_transaction_status_song">Playback Transaction Status <i class="fas fa-play-circle"></i></a></li>
+    </ul>
 
-        <div class="other">
-            <a href="#"><i class="fas fa-cog"></i> Settings</a>
-            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
+    <div class="other">
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+      <a href="login"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
-    <body>
-        <div class="title">
-            <h1>MY SPOTITI</h1>
-        </div>
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2>HI, Pimpinan</h2>
-            </div>
-            <ul class="menu">
-                <li class="with-icon"><a href="#">Home <i class="fas fa-home"></i></a></li>
-                <li class="with-icon"><a href="#">Monthly Transaction Report <i class="fas fa-file"></i></a></li>
-                <li class="with-icon"><a href="#">Music Playback Transaction Report <i class="fas fa-music"></i></a></li>
-                <li class="with-icon"><a href="#">Playback Transaction Status <i class="fas fa-play-circle"></i></a></li>
-            </ul>
-    
-            <div class="other">
-                <a href="#"><i class="fas fa-cog"></i> Settings</a>
-                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </div>
-    
-        <div class="tabel">
-            <table border="1">
-                <tr>
-                    <thead >
-                        <tr style="background-color: purple; color:white;">
-                            <th scope="col">Month</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">TOP SONG</th>
-                            <th scope="col">TOP GENRE</th>
-                            <th scope="col">TOP SUB-GENRE</th>
-                            <th scope="col">MUSIC PLAYER</th>
-                        </tr>
-                    </thead>
-                <tbody>
-                    <% let i = 1 %>
-                    <% for(let row of myMusicData) { %>
-                        <tr>
-                           
-                            <td><%= row.my_month %></td>
-                            <td><%= row.my_amount %></td>
-                            <td><%= row.my_top_song %></td>
-                            <td><%= row.my_top_genre %></td>
-                            <td><%= row.my_top_subgenre %></td>
-                            <td><%= row.my_num_music_players %></td>
-                        </tr>
-                    
-                    <% i++ %>
-                    <% } %>
-                </tbody>
-                </tr>
-            </table>
-        </div>
+  </div>
+
+  <div class="tabel">
+    <table border="1">
+      <thead>
+        <tr style="background-color: purple; color:white;">
+          <th scope="col">nama</th>
+          <th scope="col">judul</th>
+          <th scope="col">nama genre</th>
+          <th scope="col">nama subgenre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let i = 1 %>
+        <% for(let row of playback_transaction) { %>
+          <tr>
+            <td><%= row.nama %></td>
+            <td><%= row.judul %></td>
+            <td><%= row.genrename %></td>
+            <td><%= row.sub_genrename %></td>
+          </tr>
+          <% i++ %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </body>
 
 </html>
