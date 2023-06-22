@@ -469,8 +469,11 @@ app.post('/login', async (req, res) => {
     if (dataUser.length > 0) {
       req.session.name = dataUser[0].nama;
       req.session.idU = dataUser[0].id;
+      req.session.role = dataUser[0].role
       var nama = req.session.name;
       const idU = req.session.idU
+      const role = req.session.role
+      console.log(role)
       let dataSong = await getSong(conn);
       const searchBarS = ""
       const statusMember = await cekMembership(conn, idU)
@@ -480,10 +483,19 @@ app.post('/login', async (req, res) => {
       }
       else {
         status = "nonMembership"
-
       }
       conn.release()
-      res.render('HomePage', {dataSong, nama, searchBarS, status })
+
+      if(role == "member"){
+        res.render('HomePage', {dataSong, nama, searchBarS, status })
+      }
+      else if(role == "admin"){
+        res.render('homepage-admin')
+      }
+      else{
+        res.render('pimpinan')
+      }
+      
 
     }
     else {
@@ -622,7 +634,7 @@ app.post('/signup', async (req, res) => {
     } else {
       // Insert data user baru ke dalam database
       conn.query(
-        `INSERT INTO user (username, password, nama, email) VALUES ('${username}', '${password}', '${name}', '${email}')`,
+        `INSERT INTO user (username, password, nama, email, role) VALUES ('${username}', '${password}', '${name}', '${email}', 'member')`,
         (err, result) => {
           if (err) {
             console.error(err);
