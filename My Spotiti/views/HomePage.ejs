@@ -35,10 +35,10 @@
         <a href="/Membership" id="upgradeLink">upgrade</a>
       </div>
       <div class="made-for-you">
-        <h2>MADE FOR YOU</h2>
+        
         <div class="image-container">
           <a href="#">
-            <img src="assets/mixPlaylist.png" alt="Album Image">
+            
           </a>
         </div>
         <div><br></div>
@@ -67,7 +67,9 @@
                       <%= row.durasi %>
                     </td>
                     <td>
-                      <button class="play-button">Play</button>
+                      <a href="/HomePage?jdl=<%= row.judul %>" class="play-button">
+                        <button>Play</button>
+                      </a>
                     </td> 
                   </tr>
                   <% i++ %>

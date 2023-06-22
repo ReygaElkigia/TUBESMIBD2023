@@ -155,6 +155,21 @@ const getSong = conn => {
   });
 };
 
+const getArtis =(conn, jdl) => {
+  return new Promise((resolve, reject) => {
+    conn.query
+      (`SELECT *
+          FROM music 
+          WHERE judul = '${jdl}' `, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+  });
+};
+
 
 const cekMembership = (conn, idU) => {
   return new Promise((resolve, reject) => {
@@ -294,12 +309,20 @@ app.get('/login', async (req, res) => {
 app.get('/signup', async (req, res) => {
   res.render('signup')
 });
+
+
+
 app.get('/HomePage', async (req, res) => {
   const conn = await dbConnect();
   var nama = req.session.name;
   const idU = req.session.idU
   let dataSong = await getSong(conn);
   const searchBarS = req.query.search
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   const statusMember = await cekMembership(conn, idU)
   let status = "";
   if (statusMember.length > 0) {
@@ -313,7 +336,7 @@ app.get('/HomePage', async (req, res) => {
     dataSong = await sSong(conn, searchBarS)
   }
   conn.release()
-  res.render('HomePage', { dataSong, nama, searchBarS, status });
+  res.render('HomePage', { dataSong, nama, searchBarS, status, ats });
 
 });
 
@@ -330,11 +353,16 @@ app.get('/MemberPlaylist', async (req, res) => {
   let dataPlaylist = await getPlaylist(conn);
   const searchBar = req.query.search
   const idP = req.query.idP
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBar != undefined && searchBar.length) {
     dataPlaylist = await sPLaylist(conn, searchBar)
   }
   conn.release()
-  res.render('MemberPlaylist', { dataPlaylist, nama, searchBar, idP });
+  res.render('MemberPlaylist', { dataPlaylist, nama, searchBar, idP, ats });
 
 });
 
@@ -345,11 +373,16 @@ app.get('/isiPlaylist', async (req, res) => {
   let dataIsiPlaylist = await getIsiPlaylist(conn, idP)
   const searchBarI = req.query.search
   console.log(dataIsiPlaylist)
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiPlaylist = await sSongP(conn, searchBarI)
   }
   conn.release()
-  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI, idP });
+  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI, idP,ats });
 
 });
 
@@ -361,11 +394,16 @@ app.get('/MemberGenre', async (req, res) => {
   let dataGenre = await getGenre(conn)
   const searchBarG = req.query.search
   const idG = req.query.idG
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBarG != undefined && searchBarG.length) {
     dataGenre = await sGenre(conn, searchBarG)
   }
   conn.release()
-  res.render('MemberGenre', { dataGenre, nama, searchBarG, idG });
+  res.render('MemberGenre', { dataGenre, nama, searchBarG, idG,ats });
 
 });
 
@@ -375,11 +413,16 @@ app.get('/subGenre', async (req, res) => {
   const nama = req.session.name;
   let dataSubGenre = await getSubGenre(conn, idG)
   const searchBarSG = req.query.search
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBarSG != undefined && searchBarSG.length) {
     dataSubGenre = await sSubGenre(conn, searchBarSG)
   }
   conn.release()
-  res.render('subGenre', { dataSubGenre, nama, searchBarSG, idG });
+  res.render('subGenre', { dataSubGenre, nama, searchBarSG, idG, ats });
 
 });
 
@@ -389,11 +432,16 @@ app.get('/isiSubGenre', async (req, res) => {
   const nama = req.session.name;
   let dataIsiSubGenre = await getIsiSubGenre(conn, idSG)
   const searchBarI = req.query.search
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiSubGenre = await sSongP(conn, searchBarI)
   }
   conn.release()
-  res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG });
+  res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG, ats });
 
 });
 
@@ -426,11 +474,16 @@ app.get('/MyPlaylist', async (req, res) => {
   let dataMyPlaylist = await getMyPlaylist(conn, idU);
   console.log(nama)
   console.log(idU)
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
   if (searchBar != undefined && searchBar.length) {
     dataMyPlaylist = await sPLaylist(conn, searchBar)
   }
   conn.release()
-  res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU });
+  res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU, ats });
 
 });
 
@@ -473,6 +526,8 @@ app.post('/login', async (req, res) => {
       var nama = req.session.name;
       const idU = req.session.idU
       const role = req.session.role
+      const jdl = "Drown"
+      const ats = await getArtis(conn, jdl)
       console.log(role)
       let dataSong = await getSong(conn);
       const searchBarS = ""
@@ -487,7 +542,7 @@ app.post('/login', async (req, res) => {
       conn.release()
 
       if(role == "member"){
-        res.render('HomePage', {dataSong, nama, searchBarS, status })
+        res.render('HomePage', {dataSong, nama, searchBarS, status, ats })
       }
       else if(role == "admin"){
         res.render('homepage-admin')
@@ -568,6 +623,11 @@ app.get('/buyMembership/:getType', async (req, res) => {
   console.log(date)
   console.log(day)
   console.log(getType)
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = "BMTH"
   // if (day < 10) {
   //   day = "0" + day
   // }
@@ -632,7 +692,7 @@ app.get('/buyMembership/:getType', async (req, res) => {
   }
 
   console.log(tglAkhir)
-
+  
   const inputN = await getMembership(conn, getType, tglAwal, tglAkhir, idU);
   res.redirect('/HomePage')
 });
@@ -652,6 +712,7 @@ app.post('/TambahGenre', async (req, res) => {
       }
     });
   } catch (err) {
+    
     console.error(err);
     res.status(500).send('Error connecting to the database');
   }
@@ -743,7 +804,7 @@ app.post('/TambahMusic', async (req, res) => {
     const artis = req.body.artis;
     const durasi = req.body.durasi;
     const subgenre = req.body.subgenre;
-    console.log(judul)
+    console.log(subgenre + "asdasd")
     const query = `INSERT INTO music (judul, artis, durasi, id_subG) VALUES ('${judul}', '${artis}', '${durasi}', ${subgenre})`;
 
     conn.query(query, (err, result) => {
