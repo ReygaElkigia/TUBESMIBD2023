@@ -2,6 +2,11 @@
     <title>Admin MySpotiti - Home</title>
     <link rel="stylesheet" type="text/css" href="homepage-admin.css">
     <link rel="stylesheet" href="../sideBar.css">
+    <script>
+      function showAlert() {
+        alert("Sub-Genre Berhasil Ditambahkan Ke Database!");
+      }
+    </script>
   </head>
   <body>
     <div class="sideBarsemua">
@@ -58,7 +63,7 @@
           
           
           <div class="form-group">
-            <input type="submit" class = "save-button" value="Simpan"></input>
+            <input type="submit" class = "save-button" value="Simpan" onclick="showAlert()"></input>
           </div>
         </form>
       <ul id="genre-list"></ul>
