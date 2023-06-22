@@ -10,35 +10,36 @@
   <title>My Spotiti</title>
 </head>
 
-<body>  
+<body>
   <div class="container">
     <div class="column column-1">
       <%- include('sideBar') %>
     </div>
     <div class="column column-2">
       <div class="made-for-you">
-        <h2>Playlist For You</h2>
+        <h2>My Playlist</h2>
         <div>
-          <form id="searchForm" action="/MemberPlaylist" method="get">
-              <input type="text" name="search" placeholder="Search in Playlist.."  />
+          <form id="searchForm" action="/MyPlaylist" method="get">
+              <input type="text" name="search" placeholder="Search My Playlist.."  />
               <button type="submit">Search</button>
             </form>
       </div>
         <div class="image-container">
           <table>
             <thead>
+                
               <tr>
                 <th> </th>
               </tr>
             </thead>
             <tbody>
               <% let i=1 %>
-                <% for(let row of dataPlaylist) { %>
+                <% for(let row of dataMyPlaylist) { %>
                  
                     <tr>
                       <td>
                         <input type="hidden" >
-                        <a href="/isiPlaylist?idP=<%= row.id_playlist %>">
+                        <a href="/isiMyPlaylist?idP=<%= row.id_playlist %>">
                           <%= row.nama %>
                         </a>
                       </td>

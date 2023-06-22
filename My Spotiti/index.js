@@ -75,6 +75,21 @@ const getPlaylist = conn => {
   });
 };
 
+const getMyPlaylist = (conn, idU) => {
+  return new Promise((resolve, reject) => {
+    console.log(idU + "r" )
+    conn.query
+      (`SELECT *
+        FROM playlist 
+        WHERE id_playlist = '${idU}' `, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+  });
+};
 
 const getGenre = conn => {
   return new Promise((resolve, reject) => {
@@ -350,7 +365,7 @@ app.get('/subGenre', async (req, res) => {
   const idG = req.query.idG
   const nama = req.session.name;
   let dataSubGenre = await getSubGenre(conn, idG)
-  const searchBarSG = req.query.search
+  const searchBarSG = req.query.search 
   if (searchBarSG != undefined && searchBarSG.length) {
     dataSubGenre = await sSubGenre(conn, searchBarSG)
   }
@@ -370,6 +385,43 @@ app.get('/isiSubGenre', async (req, res) => {
   }
 
   res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG });
+
+});
+
+
+app.get('/LikedSong', async (req, res) => {
+  const conn = await dbConnect();
+  const nama = req.session.name; // Definisikan variabel 'nama' di sini
+  
+  const searchBar = req.query.search
+  const idP = req.query.idP
+  const idU = req.session.idU
+  let dataLikedSong= await getLikedSong(conn, idU);
+  console.log(nama)
+  console.log(idU)
+  if (searchBar != undefined && searchBar.length) {
+    dataLikedSong = await sPLaylist(conn, searchBar)
+  }
+
+  res.render('/LikedSong', { dataLikedSong, nama, searchBar, idP, idU });
+
+});
+
+app.get('/MyPlaylist', async (req, res) => {
+  const conn = await dbConnect();
+  const nama = req.session.name; // Definisikan variabel 'nama' di sini
+  
+  const searchBar = req.query.search
+  const idP = req.query.idP
+  const idU = req.session.idU
+  let dataMyPlaylist = await getMyPlaylist(conn, idU);
+  console.log(nama)
+  console.log(idU)
+  if (searchBar != undefined && searchBar.length) {
+    dataMyPlaylist = await sPLaylist(conn, searchBar)
+  }
+
+  res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU });
 
 });
 
@@ -406,6 +458,7 @@ app.post('/login', async (req, res) => {
       req.session.name = dataUser[0].nama;
       req.session.idU = dataUser[0].id;
       res.redirect('/HomePage')
+      
     }
     else {
       res.render('login')
@@ -543,7 +596,7 @@ app.post('/signup', async (req, res) => {
     } else {
       // Insert data user baru ke dalam database
       conn.query(
-        `INSERT INTO user (username, password, name, email) VALUES ('${username}', '${password}', '${name}', '${email}')`,
+        `INSERT INTO user (username, password, nama, email) VALUES ('${username}', '${password}', '${name}', '${email}')`,
         (err, result) => {
           if (err) {
             console.error(err);
@@ -565,43 +618,76 @@ app.get('/buyMembership/:getType', async (req, res) => {
   const idU = req.session.id
   const { getType } = req.params
   const date = new Date()
-  let day = date.getDate(); // Mendapatkan hari (1-31)
+  let day = date.getDate().toString().padStart(2, '0'); // Mendapatkan hari (1-31)
   let month = date.getMonth() + 1; // Mendapatkan bulan (0-11), tambahkan 1 karena bulan dihitung mulai dari 0
   let year = date.getFullYear()
   console.log(date)
   console.log(day)
-  if (day < 10) {
-    day = "0" + day
-  }
+  console.log(getType)
+  // if (day < 10) {
+  //   day = "0" + day
+  // }
 
-  if (month < 10) {
-    month = "0" + month
-  }
+  // if (month < 10) {
+  //   month = "0" + month
+  // }
 
-  const tglAwal = year + "-" + month + "-" + day
+  let tglAwal = year + "-" + month + "-" + day
+  let tglAkhir = ""
+  console.log(tglAwal)
   // const kuda = await getMembership(conn,getType, getTglMulai, getTglAkhir, idU)
   if (getType == '1month') {
+    let monthFinal = parseInt(month) + 1
+    date.setMonth(monthFinal-1)
+    console.log(date) 
+    console.log(monthFinal)
+    day = date.getDate(date)
+    month = date.getMonth(date) + 1
+    year = date.getFullYear(date)
 
-    date.setMonth(month + 1)
-    console.log(date)
+    tglAkhir = year + "-" + month + "-" + day
   }
 
   if (getType == '3month') {
 
-    let monthINT = parseInt(month) + 3
-    month = monthINT.toString();
+    let monthFinal = parseInt(month) + 3
+    date.setMonth(monthFinal-1)
+    console.log(date) 
+    console.log(monthFinal)
+    day = date.getDate(date)
+    month = date.getMonth(date) + 1
+    year = date.getFullYear(date)
 
-    console.log(month)
+    tglAkhir = year + "-" + month + "-" + day
   }
 
   if (getType == '6month') {
 
-    let monthINT = parseInt(month) + 6
-    month = monthINT.toString();
+    let monthFinal = parseInt(month) + 6
+    date.setMonth(monthFinal-1)
+    console.log(date) 
+    console.log(monthFinal)
+    day = date.getDate(date)
+    month = date.getMonth(date) + 1
+    year = date.getFullYear(date)
 
-    console.log(month)
+    tglAkhir = year + "-" + month + "-" + day
   }
 
+  if (getType == '1year') {
+
+    let yearFinal = parseInt(year) + 1
+    date.setFullYear(yearFinal-1)
+    console.log(date) 
+    console.log(yearFinal)
+    day = date.getDate(date)
+    month = date.getMonth(date) + 1
+    year = date.getFullYear(date) + 1
+
+    tglAkhir = year + "-" + month + "-" + day
+  }
+  
+  console.log(tglAkhir)
 });
 
 
