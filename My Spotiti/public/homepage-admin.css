@@ -12,8 +12,13 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    size: 30%;
   }
   
+  .formISI{
+    width: 100%;
+  }
+
   h1 {
     text-align: center;
   }
@@ -41,6 +46,7 @@ body {
     border: none;
     cursor: pointer;
   }
+  
   
   table {
     width: 100%;

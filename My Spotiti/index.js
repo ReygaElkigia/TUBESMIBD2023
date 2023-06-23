@@ -563,12 +563,21 @@ app.get('/MyPlaylist', async (req, res) => {
   if(jdl == undefined){
     jdl ="Drown"
   }
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   const ats = await getArtis(conn, jdl)
   if (searchBar != undefined && searchBar.length) {
     dataMyPlaylist = await sPLaylist(conn, searchBar)
   }
   conn.release()
-  res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU, ats });
+  res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU, ats, status });
 
 });
 
@@ -723,6 +732,7 @@ app.post('/signup', async (req, res) => {
     res.status(400).send('Invalid username or password');
   }
 });
+
 
 
 app.get('/buyMembership/:getType', async (req, res) => {
@@ -967,7 +977,8 @@ const getPlaybackTransaction = (conn) => {
     JOIN music ON playback_transaction.id_musik = music.id_musik
     JOIN sub_genre ON music.id_subG = sub_genre.id_subG
     JOIN genre ON sub_genre.id_genre = genre.id_genre
-    JOIN user ON playback_transaction.id_user = user.id`;
+    JOIN user ON playback_transaction.id_user = user.id
+    GROUP BY music.judul`;
 
     conn.query(query, (err, result) => {
       if (err) {
