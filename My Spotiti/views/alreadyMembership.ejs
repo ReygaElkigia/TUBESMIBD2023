@@ -24,13 +24,6 @@
       
     </div>
     <div class="column column-2">
-      <div>
-        <form id="searchForm" action="/HomePage" method="get">
-            <input type="text" name="search" placeholder="Search song.."  />
-            <button type="submit">Search</button>
-          </form>
-    </div>
-
       
       <div class="made-for-you">
         
@@ -40,35 +33,35 @@
           </a>
         </div>
         <div><br></div>
-        <h2>Song For You</h2>
+        <h2>Already Membership!</h2>
         <ul class="song-list">
             <table>
               <thead>
                 <tr>
-                  <th>Judul</th>
-                  <th>Artis</th>
-                  <th>durasi</th>
-                  <th></th>
+                  <th>id Membership</th>
+                  <th>Packet</th>
+                  <th>Tanggal Mulai</th>
+                  <th>Tanggal berakhir</th>
                 </tr>
               </thead>
               <tbody>
                 <% let i=1 %>
-                <% for(let row of dataSong) { %>
+                <% for(let row of paket) { %>
                   <tr>
                     <td>
-                      <%= row.judul %>
+                      <%= row.id_membership %>
                     </td>
                     <td>
-                      <%= row.artis %>
+                      <%= row.subscription %>
                     </td>
                     <td>
-                      <%= row.durasi %>
+                        <% const tanggalMulai = new Date(row.tanggal_mulai); %>
+                        <%= tanggalMulai.toISOString().slice(0, 10) %>
                     </td>
                     <td>
-                      <a href="/HomePage?jdl=<%= row.judul %>" class="play-button">
-                        <button>Play</button>
-                      </a>
-                    </td> 
+                        <% const tanggalAkhir = new Date(row.tanggal_akhir); %>
+                        <%= tanggalAkhir.toISOString().slice(0, 10) %>
+                      </td>
                   </tr>
                   <% i++ %>
                     <% } %>

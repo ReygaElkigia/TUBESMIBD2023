@@ -1,36 +1,48 @@
 <link rel="stylesheet" href="../sideBar2.css">
 <div class="sideBarSemua2">
-    <div class="profile">
-      <div class="profile-info">
-        <div class="profile-image">
-          <img src="assets/profileEx.jpg" alt="Profile Image">
-        </div>
-        <div>
-          <div class="profile-name"><%= nama %></div>
-          <div class="profile-member">Membership</div>
-        </div>
-       
+  <div class="profile">
+    <div class="profile-info">
+      <div class="profile-image">
+        <img src="assets/profileEx.jpg" alt="Profile Image">
       </div>
-    </div>
-    
-    <div class="music-player">
-      <div class="music-player2">
-        <div class="music-info">
-          <div class="song-title"><%= ats[0].judul %></div>
-          <div class="artist-name"><%= ats[0].artis %></div>
+      <div>
+        <div class="profile-name">
+          <%= nama %>
         </div>
-        <div class="progress-bar">
-          <div class="progress"></div>
-        </div>
-        <div class="controls">
-          <i class="fa-sharp fa-solid fa-backward" style="font-size: x-large;"></i>
-          <i class="fa-sharp fa-solid fa-circle-play" style="font-size: x-large;"></i>
-          <i class="fa-solid fa-forward" style="font-size: x-large;"></i>
-        </div>
-      </div>     
-    </div>
-    
-    <div class="square-image">
-      <img src="assets/recent.png" alt="Square Image">
+        <% if(status=="Membership" ){ %>
+          <div class="profile-member">Membership</div>
+          
+            <% } else{ %>
+              <div class="profile-member">Non-Membership</div>
+         <% } %>
+                 
+      </div>
+
     </div>
   </div>
+
+  <div class="music-player">
+    <div class="music-player2">
+      <div class="music-info">
+        <div class="song-title">
+          <%= ats[0].judul %>
+        </div>
+        <div class="artist-name">
+          <%= ats[0].artis %>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="controls">
+        <i class="fa-sharp fa-solid fa-backward" style="font-size: x-large;"></i>
+        <i class="fa-sharp fa-solid fa-circle-play" style="font-size: x-large;"></i>
+        <i class="fa-solid fa-forward" style="font-size: x-large;"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="square-image">
+    <img src="assets/recent.png" alt="Square Image">
+  </div>
+</div>

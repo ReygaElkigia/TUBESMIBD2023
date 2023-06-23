@@ -146,7 +146,7 @@ const getSong = conn => {
     conn.query
       (`SELECT judul, artis , durasi
           FROM music 
-          LIMIT 5`, (err, result) => {
+          LIMIT 10`, (err, result) => {
         if (err) {
           reject(err);
         } else {
@@ -173,6 +173,23 @@ const getArtis =(conn, jdl) => {
 
 
 const cekMembership = (conn, idU) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT *
+      from user JOIN membership ON user.id = membership.id_user
+      WHERE '${idU}' = membership.id_user`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
+const packetMembership = (conn, idU) => {
   return new Promise((resolve, reject) => {
     conn.query(
       `SELECT *
@@ -354,16 +371,26 @@ app.get('/MemberPlaylist', async (req, res) => {
   let dataPlaylist = await getPlaylist(conn);
   const searchBar = req.query.search
   const idP = req.query.idP
+  const idU = req.session.idU
   let jdl = req.query.jdl
   if(jdl == undefined){
     jdl ="Drown"
   }
   const ats = await getArtis(conn, jdl)
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBar != undefined && searchBar.length) {
     dataPlaylist = await sPLaylist(conn, searchBar)
   }
   conn.release()
-  res.render('MemberPlaylist', { dataPlaylist, nama, searchBar, idP, ats });
+  res.render('MemberPlaylist', { dataPlaylist, nama, searchBar, idP, ats, status });
 
 });
 
@@ -373,17 +400,27 @@ app.get('/isiPlaylist', async (req, res) => {
   const nama = req.session.name;
   let dataIsiPlaylist = await getIsiPlaylist(conn, idP)
   const searchBarI = req.query.search
+  const idU = req.session.idU
   console.log(dataIsiPlaylist)
   let jdl = req.query.jdl
   if(jdl == undefined){
     jdl ="Drown"
+  }
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
   }
   const ats = await getArtis(conn, jdl)
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiPlaylist = await sSongP(conn, searchBarI)
   }
   conn.release()
-  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI, idP,ats });
+  res.render('isiPlaylist', { dataIsiPlaylist, nama, searchBarI, idP,ats, status });
 
 });
 
@@ -396,15 +433,26 @@ app.get('/MemberGenre', async (req, res) => {
   const searchBarG = req.query.search
   const idG = req.query.idG
   let jdl = req.query.jdl
+  
   if(jdl == undefined){
     jdl ="Drown"
   }
   const ats = await getArtis(conn, jdl)
+  const idU = req.session.idU
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBarG != undefined && searchBarG.length) {
     dataGenre = await sGenre(conn, searchBarG)
   }
   conn.release()
-  res.render('MemberGenre', { dataGenre, nama, searchBarG, idG,ats });
+  res.render('MemberGenre', { dataGenre, nama, searchBarG, idG,ats, status });
 
 });
 
@@ -419,11 +467,21 @@ app.get('/subGenre', async (req, res) => {
     jdl ="Drown"
   }
   const ats = await getArtis(conn, jdl)
+  const idU = req.session.idU
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBarSG != undefined && searchBarSG.length) {
     dataSubGenre = await sSubGenre(conn, searchBarSG)
   }
   conn.release()
-  res.render('subGenre', { dataSubGenre, nama, searchBarSG, idG, ats });
+  res.render('subGenre', { dataSubGenre, nama, searchBarSG, idG, ats, status });
 
 });
 
@@ -438,11 +496,21 @@ app.get('/isiSubGenre', async (req, res) => {
     jdl ="Drown"
   }
   const ats = await getArtis(conn, jdl)
+  const idU = req.session.idU
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBarI != undefined && searchBarI.length) {
     dataIsiSubGenre = await sSongP(conn, searchBarI)
   }
   conn.release()
-  res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG, ats });
+  res.render('isiSubGenre', { dataIsiSubGenre, nama, searchBarI, idSG, ats, status });
 
 });
 
@@ -457,11 +525,27 @@ app.get('/LikedSong', async (req, res) => {
   let dataLikedSong = await getSong(conn, idU);
   console.log(nama)
   console.log(idU)
+  let jdl = req.query.jdl
+  
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const ats = await getArtis(conn, jdl)
+ 
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
   if (searchBar != undefined && searchBar.length) {
     dataLikedSong = await sPLaylist(conn, searchBar)
   }
   conn.release()
-  res.render('LikedSong', { dataLikedSong, nama, searchBar, idP, idU });
+  res.render('LikedSong', { dataLikedSong, nama, searchBar, idP, idU, ats, status });
 
 });
 
@@ -485,6 +569,34 @@ app.get('/MyPlaylist', async (req, res) => {
   }
   conn.release()
   res.render('MyPlaylist', { dataMyPlaylist, nama, searchBar, idP, idU, ats });
+
+});
+
+app.get('/alreadyMembership', async (req, res) => {
+  const conn = await dbConnect();
+  const nama = req.session.name; // Definisikan variabel 'nama' di sini
+
+  const idP = req.query.idP
+  const idU = req.session.idU
+  let paket = await packetMembership(conn, idU);
+  console.log(nama + "abc")
+  console.log(idU + "ecd")
+  let jdl = req.query.jdl
+  if(jdl == undefined){
+    jdl ="Drown"
+  }
+  const statusMember = await cekMembership(conn, idU)
+  let status = "";
+  if (statusMember.length > 0) {
+    status = "Membership"
+  }
+  else {
+    status = "nonMembership"
+
+  }
+  const ats = await getArtis(conn, jdl)
+  conn.release()
+  res.render('alreadyMembership', { paket, nama, idP, idU, ats, status });
 
 });
 

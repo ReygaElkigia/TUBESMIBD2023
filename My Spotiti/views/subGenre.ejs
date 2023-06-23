@@ -12,7 +12,13 @@
 <body>
     <div class="container">
       <div class="column column-1">
-        <%- include('sideBar') %>
+        <% if(status == "Membership"){ %>
+          
+          <%- include('sideBarMembership') %>
+        <% } else{ %>
+          <%- include('sideBar') %>
+        <% } %>
+         
       </div>
       <div class="column column-2">
         <div class="made-for-you">
